@@ -909,7 +909,9 @@ def update_dashboard(base_dir: Optional[Path] = None) -> List[Path]:
         base_dir / "index.html",
         base_dir / "dashboard.html",
         base_dir / "output" / "index.html",
-        base_dir / "output" / "dashboard.html"
+        base_dir / "output" / "dashboard.html",
+        base_dir / "SUBIR_A_NETLIFY" / "index.html",
+        base_dir / "SUBIR_A_NETLIFY" / "dashboard.html",
     ]
 
     for p in out_paths:

@@ -115,6 +115,15 @@ def run_daily_update(
     IncrementalTracker.sync(csv_tracker_path, fresh_entries)
     IncrementalTracker.sync(xlsx_tracker_path, fresh_entries)
 
+    # Sincronizar también con la carpeta SUBIR_A_NETLIFY
+    netlify_dir = base_dir / "SUBIR_A_NETLIFY"
+    if netlify_dir.exists():
+        import shutil
+        netlify_out = netlify_dir / "output"
+        netlify_out.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(csv_tracker_path, netlify_out / csv_tracker_path.name)
+        shutil.copy2(xlsx_tracker_path, netlify_out / xlsx_tracker_path.name)
+
     # 5. Regenerar Dashboard HTML e index.html
     logger.info("Regenerando dashboard interactivo e index.html para Netlify...")
     generated_html_files = update_dashboard(base_dir)
