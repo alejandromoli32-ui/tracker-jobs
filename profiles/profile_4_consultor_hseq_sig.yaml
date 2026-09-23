@@ -1,0 +1,111 @@
+id: "profile_4_consultor_hseq_sig"
+name: "Consultora Senior HSEQ & Auditora de Sistemas Integrados de Gestión"
+target_role: "Consultora Senior HSEQ / Auditora Líder SG-SST y SIG"
+version: "1.0.0"
+active: true
+min_total_experience_years: 8
+
+experience:
+  min_total_years: 8
+  seniority_level: "Senior / Asesora / Auditora"
+  primary_discipline: "Ingeniería / Seguridad y Salud en el Trabajo"
+
+specializations:
+  sistemas_gestion:
+    name: "Sistemas Integrados de Gestión HSEQ"
+    min_years: 5
+    weight: 35.0
+    keywords:
+      - "sg-sst"
+      - "hseq"
+      - "hse"
+      - "iso 45001"
+      - "iso 14001"
+      - "iso 9001"
+      - "resolución 0312"
+      - "decreto 1072"
+      - "auditorías remotas"
+      - "auditor líder"
+      - "investigación de accidentes"
+      - "planes de emergencia"
+    boost_keywords:
+      - "iso 45001"
+      - "auditor líder"
+      - "resolución 0312"
+      - "sg-sst"
+
+  seguridad_vial_pesv:
+    name: "Seguridad Vial y Planes PESV"
+    min_years: 3
+    weight: 25.0
+    keywords:
+      - "plan estratégico de seguridad vial"
+      - "pesv"
+      - "resolución 40595"
+      - "seguridad vial"
+      - "matriz de riesgos laborales"
+      - "indicadores sst"
+    boost_keywords:
+      - "pesv"
+      - "resolución 40595"
+      - "seguridad vial"
+
+modality:
+  strictly_remote: true
+  allowed_modalities:
+    - "remoto"
+    - "virtual"
+    - "teletrabajo"
+    - "100% remoto"
+  disqualifiers:
+    - "inspector de campo presencial permanente"
+    - "turnos 14x7 campamento"
+    - "campamento obligatorio"
+    - "residente de obra"
+    - "100% presencial"
+  allowed_countries:
+    - "Colombia"
+    - "Remoto"
+  geographic_disqualifiers:
+    - "must reside in usa"
+    - "us citizens only"
+    - "w2 only"
+
+required_credentials:
+  - "Licencia en Seguridad y Salud en el Trabajo (SST) vigente"
+  - "Curso de 50 horas SG-SST (Resolución 0312)"
+  - "Certificación Auditor Líder IRCA ISO 45001"
+
+search_queries:
+  - "Consultor sst remoto colombia"
+  - "Auditor hseq teletrabajo"
+  - "Asesor seguridad y salud en el trabajo virtual"
+  - "Auditor lider iso 45001 remoto"
+
+search_config:
+  locations:
+    - "Colombia"
+    - "Remoto"
+  modalities:
+    - "remoto"
+    - "virtual"
+    - "teletrabajo"
+  portals:
+    - "computrabajo"
+    - "elempleo"
+    - "linkedin"
+  max_pages_per_portal: 4
+  date_posted_limit_days: 30
+  query_strings:
+    - "Consultor sst remoto colombia"
+    - "Auditor hseq teletrabajo"
+    - "Asesor seguridad y salud en el trabajo virtual"
+
+scoring_weights:
+  modality: 25.0
+  seniority: 25.0
+  vias: 15.0
+  sst: 35.0
+  synergy_bonus: 10.0
+  min_score_to_save: 50.0
+  high_affinity_threshold: 70.0

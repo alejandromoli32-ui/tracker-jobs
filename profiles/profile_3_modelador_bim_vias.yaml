@@ -1,0 +1,108 @@
+id: "profile_3_modelador_bim_vias"
+name: "Especialista en Modelación BIM e Infraestructura Vial"
+target_role: "Especialista BIM Civil & Infraestructura Vial"
+version: "1.0.0"
+active: true
+min_total_experience_years: 5
+
+experience:
+  min_total_years: 5
+  seniority_level: "Especialista / Modelador Senior"
+  primary_discipline: "Ingeniería Civil / Modelado BIM"
+
+specializations:
+  bim_vial:
+    name: "Modelado BIM e Infraestructura Vial"
+    min_years: 4
+    weight: 40.0
+    keywords:
+      - "autodesk civil 3d"
+      - "civil 3d"
+      - "infraworks"
+      - "revit infraestructura"
+      - "navisworks"
+      - "gemelos digitales"
+      - "detección de colisiones"
+      - "norma iso 19650"
+      - "ifc caminos"
+      - "diseño geométrico 3d"
+      - "corredores viales 3d"
+      - "movimiento de tierras"
+    boost_keywords:
+      - "civil 3d"
+      - "infraworks"
+      - "bim"
+      - "iso 19650"
+
+  automatizacion_cad:
+    name: "Diseño Computacional y Automatización"
+    min_years: 2
+    weight: 20.0
+    keywords:
+      - "dynamo"
+      - "python para bim"
+      - "nubes de puntos lidar"
+      - "topografía digital"
+      - "modelado paramétrico"
+    boost_keywords:
+      - "dynamo"
+      - "nubes de puntos"
+
+modality:
+  strictly_remote: true
+  allowed_modalities:
+    - "remoto"
+    - "virtual"
+    - "teletrabajo"
+    - "100% remoto"
+  disqualifiers:
+    - "100% presencial en obra"
+    - "residente en obra"
+    - "campamento"
+    - "trabajo de campo continuo"
+  allowed_countries:
+    - "Colombia"
+    - "Global"
+    - "Remoto"
+  geographic_disqualifiers:
+    - "must reside in usa"
+    - "us citizens only"
+    - "w2 only"
+
+required_credentials:
+  - "Tarjeta Profesional COPNIA"
+  - "Certificación Autodesk Certified Professional (Civil 3D / Revit)"
+
+search_queries:
+  - "BIM manager civil 3d remoto"
+  - "Especialista bim vias teletrabajo"
+  - "Coordinador infraestructura bim colombia"
+  - "Modelador civil 3d remoto"
+
+search_config:
+  locations:
+    - "Colombia"
+    - "Remoto"
+    - "Global"
+  modalities:
+    - "remoto"
+    - "virtual"
+  portals:
+    - "computrabajo"
+    - "elempleo"
+    - "linkedin"
+  max_pages_per_portal: 4
+  date_posted_limit_days: 30
+  query_strings:
+    - "BIM manager civil 3d remoto"
+    - "Especialista bim vias teletrabajo"
+    - "Modelador civil 3d remoto"
+
+scoring_weights:
+  modality: 25.0
+  seniority: 25.0
+  vias: 30.0
+  sst: 10.0
+  synergy_bonus: 10.0
+  min_score_to_save: 50.0
+  high_affinity_threshold: 70.0

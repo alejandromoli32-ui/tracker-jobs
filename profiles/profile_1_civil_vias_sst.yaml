@@ -1,0 +1,208 @@
+id: "profile_1_civil_vias_sst"
+name: "Ingeniera Civil Senior - Especialista en Vías & SST"
+target_role: "Ingeniera Civil Especialista en Vías y SST"
+version: "1.0.0"
+active: true
+min_total_experience_years: 15
+
+experience:
+  min_total_years: 15
+  seniority_level: "Senior"
+  primary_discipline: "Ingeniería Civil"
+
+specializations:
+  vias:
+    name: "Vías e Infraestructura Vial"
+    min_years: 5
+    weight: 25.0
+    keywords:
+      - "vías"
+      - "vias"
+      - "infraestructura vial"
+      - "pavimentos"
+      - "pavimento asfáltico"
+      - "pavimento rígido"
+      - "carreteras"
+      - "diseño geométrico"
+      - "tránsito y transporte"
+      - "geotecnia vial"
+      - "invias"
+      - "ani"
+      - "idu"
+      - "concesión vial"
+      - "corredor vial"
+      - "seguridad vial"
+      - "pesv"
+      - "civil 3d"
+      - "interventoría vial"
+    boost_keywords:
+      - "diseño geométrico"
+      - "pavimentos"
+      - "invias"
+      - "ani"
+      - "interventoría vial"
+
+  sst:
+    name: "Seguridad y Salud en el Trabajo (SST)"
+    min_years: 5
+    weight: 25.0
+    keywords:
+      - "seguridad y salud en el trabajo"
+      - "sst"
+      - "sg-sst"
+      - "hseq"
+      - "hse"
+      - "salud ocupacional"
+      - "licencia sst"
+      - "resolución 0312"
+      - "decreto 1072"
+      - "prevención de riesgos"
+      - "matriz de riesgos"
+      - "copasst"
+      - "auditoría sst"
+      - "iso 45001"
+      - "seguridad industrial"
+      - "higiene laboral"
+    boost_keywords:
+      - "licencia sst"
+      - "sg-sst"
+      - "resolución 0312"
+      - "iso 45001"
+      - "prevención de riesgos"
+
+modality:
+  strictly_remote: true
+  allowed_modalities:
+    - "remoto"
+    - "virtual"
+    - "teletrabajo"
+    - "100% remoto"
+    - "trabajo desde casa"
+    - "home office"
+    - "trabajo a distancia"
+  allowed_presencial_cities:
+    - "Barranquilla"
+    - "Atlántico"
+    - "Atlantico"
+    - "Puerto Colombia"
+    - "Soledad"
+    - "Galapa"
+    - "Malambo"
+  disqualifiers:
+    - "100% presencial"
+    - "totalmente presencial"
+    - "presencial en obra"
+    - "en obra"
+    - "residente de obra"
+    - "residente técnico de obra"
+    - "campamento"
+    - "en campamento"
+    - "frente de obra"
+    - "disponibilidad para trasladarse a obra"
+    - "trabajo en campo 100%"
+    - "vivir en campamento"
+    - "inspección física en obra"
+    - "sitio de obra"
+    - "turnos 14x7"
+    - "turnos 21x7"
+  allowed_countries:
+    - "Colombia"
+    - "Remoto Nacional"
+    - "Bogotá"
+    - "Medellín"
+  geographic_disqualifiers:
+    - "must reside in usa"
+    - "us citizens only"
+    - "w2 only"
+    - "green card required"
+    - "residencia obligatoria en españa"
+    - "residir en santiago de chile"
+
+required_credentials:
+  - "Tarjeta Profesional COPNIA"
+  - "Licencia en Seguridad y Salud en el Trabajo (Resolución vigente)"
+  - "Curso de 50 horas / 20 horas SG-SST (Resolución 0312/2019)"
+
+search_queries:
+  - "Ingeniero Civil Remoto"
+  - "Ingeniera Civil Teletrabajo"
+  - "Especialista Vias Remoto"
+  - "Seguridad y Salud Trabajo Remoto"
+  - "SST Remoto Colombia"
+  - "Interventoria Vial Virtual"
+  - "Coordinador HSEQ Remoto"
+  - "Ingeniero de Vias"
+  - "Especialista en Vias"
+  - "Especialista en Pavimentos"
+  - "Diseno Geometrico Vias"
+  - "Interventoria Vial"
+  - "Director de Proyecto Vias"
+  - "Consultor Vial"
+  - "Especialista SST"
+  - "Director SST"
+  - "Coordinador SST"
+  - "Gerente SST"
+  - "Consultor HSEQ"
+  - "Auditor SG-SST"
+  - "Seguridad Vial PESV"
+  - "Ingeniero Civil HSEQ"
+  - "Interventoria Civil"
+  - "Ingeniero Civil Barranquilla"
+  - "Ingeniera Civil Barranquilla"
+  - "Especialista Vias Barranquilla"
+  - "SST Barranquilla"
+  - "Interventoria Barranquilla"
+  - "Coordinador HSEQ Barranquilla"
+
+search_config:
+  locations:
+    - "Colombia"
+    - "Remoto"
+    - "Bogotá"
+    - "Medellín"
+    - "Cali"
+    - "Barranquilla"
+  modalities:
+    - "remoto"
+    - "virtual"
+    - "teletrabajo"
+    - "hibrido"
+  portals:
+    - "computrabajo"
+    - "elempleo"
+    - "linkedin"
+  max_pages_per_portal: 3
+  date_posted_limit_days: 30
+  query_strings:
+    - "Ingeniero Civil Remoto"
+    - "Ingeniera Civil Teletrabajo"
+    - "Especialista Vias Remoto"
+    - "Seguridad y Salud Trabajo Remoto"
+    - "SST Remoto Colombia"
+    - "Interventoria Vial Virtual"
+    - "Coordinador HSEQ Remoto"
+    - "Ingeniero de Vias"
+    - "Especialista en Vias"
+    - "Especialista en Pavimentos"
+    - "Diseno Geometrico Vias"
+    - "Interventoria Vial"
+    - "Director de Proyecto Vias"
+    - "Consultor Vial"
+    - "Especialista SST"
+    - "Director SST"
+    - "Coordinador SST"
+    - "Gerente SST"
+    - "Consultor HSEQ"
+    - "Auditor SG-SST"
+    - "Seguridad Vial PESV"
+    - "Ingeniero Civil HSEQ"
+    - "Interventoria Civil"
+
+scoring_weights:
+  modality: 25.0
+  seniority: 25.0
+  vias: 25.0
+  sst: 25.0
+  synergy_bonus: 10.0
+  min_score_to_save: 50.0
+  high_affinity_threshold: 70.0

@@ -1,0 +1,194 @@
+[
+  {
+    "id": "mock_ideal_001",
+    "title": "Directora Técnica de Consultoría e Interventoría Vial y SST (Remoto Colombia)",
+    "company": "Vías Andinas Consultores & Asociados S.A.S.",
+    "location": "Bogotá, Colombia (Remoto)",
+    "modality": "remoto",
+    "direct_url": "https://co.computrabajo.com/ofertas-de-trabajo/mock-ideal-001",
+    "publication_date": "2026-09-20",
+    "salary_range": "$ 12.000.000 - $ 15.000.000 COP",
+    "source_portal": "computrabajo",
+    "raw_snippet": "Buscamos Ingeniera Civil Senior con 15+ años de experiencia en vías y SST para coordinación técnica 100% remota.",
+    "full_description": "Importante firma de consultoría e interventoría vial requiere para su equipo nacional: Profesional graduada en Ingeniería Civil con matrícula profesional COPNIA vigente. Experiencia profesional comprobable mayor a 15 años en diseño, supervisión o interventoría de infraestructura vial (pavimentos, carreteras 4G/5G). Especialización concluida en Vías y Transporte con mínimo 6 años de experiencia específica. Especialización en Seguridad y Salud en el Trabajo (SST) con Licencia SST vigente expedida por Secretaría de Salud y certificación 50 horas SG-SST. Modalidad 100% teletrabajo / virtual desde cualquier ciudad de Colombia para revisión de entregables, modelación técnica y auditoría del SG-SST contractual.",
+    "experience_years_detected": 15.0,
+    "extra_metadata": {
+      "copnia_required": true,
+      "sst_license_required": true,
+      "profile_target": "profile_1_senior_civil"
+    }
+  },
+  {
+    "id": "mock_ideal_002",
+    "title": "Consultor/a Senior de Infraestructura Vial y Seguridad Laboral - Teletrabajo",
+    "company": "Infraservicios Colombia Tech",
+    "location": "Medellín, Colombia (Teletrabajo)",
+    "modality": "remoto",
+    "direct_url": "https://www.elempleo.com/co/ofertas-trabajo/mock-ideal-002",
+    "publication_date": "2026-09-19",
+    "salary_range": "$ 10.500.000 - $ 13.000.000 COP",
+    "source_portal": "elempleo",
+    "raw_snippet": "Consultoría remota para proyectos viales nacionales y auditoría integral de sistemas de gestión SST.",
+    "full_description": "Se solicita Consultor Senior con título de Ingeniero Civil y COPNIA. Mínimo 16 años de ejercicio profesional general. Especialista en Vías Terrestres (más de 5 años en interventoría o consultoría de carreteras) y Especialista en Seguridad y Salud en el Trabajo con resolución de licencia SST activa. Funciones 100% remotas: validación de diseños geométricos, planes de manejo de tránsito, auditoría virtual de PESV (Plan Estratégico de Seguridad Vial) bajo resolución 40595 de 2022 y lineamientos del Decreto 1072 de 2015.",
+    "experience_years_detected": 16.0,
+    "extra_metadata": {
+      "copnia_required": true,
+      "sst_license_required": true
+    }
+  },
+  {
+    "id": "mock_ideal_003",
+    "title": "Coordinador Nacional de Seguridad y Salud en el Trabajo (SST) e Interventoría Vial",
+    "company": "Consorcio Vías Concesionadas",
+    "location": "Colombia (Home Office)",
+    "modality": "remoto",
+    "direct_url": "https://co.linkedin.com/jobs/view/mock-ideal-003",
+    "publication_date": "2026-09-18",
+    "salary_range": "$ 9.500.000 - $ 12.000.000 COP",
+    "source_portal": "linkedin",
+    "raw_snippet": "Home office nacional para gerencia de seguridad ocupacional y aseguramiento técnico en infraestructura vial.",
+    "full_description": "Concesión de transporte busca Ingeniero Civil con tarjeta COPNIA. Requisitos: 15 años de experiencia general en proyectos civiles de infraestructura. 5+ años de experiencia específica liderando programas de SST en obras viales. Indispensable licencia en salud ocupacional / SST vigente. El cargo es completamente remoto / home office, encargado de la gestión documental, auditorías preventivas a contratistas y seguimiento a comités paritarios (COPASST).",
+    "experience_years_detected": 15.0,
+    "extra_metadata": {
+      "copnia_required": true,
+      "sst_license_required": true
+    }
+  },
+  {
+    "id": "mock_presential_004",
+    "title": "Residente de Obra Vías y Túneles - 100% Presencial en Campamento",
+    "company": "Constructora Carreteras del Magdalena S.A.S.",
+    "location": "Puerto Salgar, Cundinamarca",
+    "modality": "presencial",
+    "direct_url": "https://co.computrabajo.com/ofertas-de-trabajo/mock-presential-004",
+    "publication_date": "2026-09-17",
+    "salary_range": "$ 6.500.000 COP",
+    "source_portal": "computrabajo",
+    "raw_snippet": "Residente de obra presencial en frente de pavimentación y túneles. Turno 21x7 en campamento.",
+    "full_description": "Constructora vial busca Residente de Obra. Ingeniero Civil con 8 años de experiencia en colocación de mezcla asfáltica en caliente y túneles. Disponibilidad absoluta e inmediata para vivir en campamento en frente de obra (Puerto Salgar). Turno 21 días de trabajo en sitio por 7 días de descanso. Supervisión continua en campo, control de cuadrillas y maquinaria pesada. Abstenerse personas interesadas en trabajo remoto o virtual.",
+    "experience_years_detected": 8.0,
+    "extra_metadata": {
+      "presential_strict": true
+    }
+  },
+  {
+    "id": "mock_presential_005",
+    "title": "Jefe de Patio y Maquinaria Pesada en Cantera",
+    "company": "Agregados e Infraestructura de la Sabana",
+    "location": "Soacha, Cundinamarca",
+    "modality": "presencial",
+    "direct_url": "https://www.elempleo.com/co/ofertas-trabajo/mock-presential-005",
+    "publication_date": "2026-09-16",
+    "salary_range": "$ 4.500.000 COP",
+    "source_portal": "elempleo",
+    "raw_snippet": "Trabajo 100% presencial en cantera de lunes a sábado para control de volquetas y trituradoras.",
+    "full_description": "Ingeniero Civil o Mecánico para labor presencial en cantera y planta de beneficio mineral. Inspección diaria en sitio de maquinaria amarilla, mantenimiento de trituradoras de áridos y supervisión de operarios en patio. Jornada presencial de lunes a sábado en sitio de explotación minera.",
+    "experience_years_detected": 5.0,
+    "extra_metadata": {
+      "presential_strict": true
+    }
+  },
+  {
+    "id": "mock_presential_006",
+    "title": "Inspector de Seguridad y Salud en el Trabajo (SST) en Planta Industrial",
+    "company": "Manufacturas y Alimentos del Valle S.A.",
+    "location": "Yumbo, Valle del Cauca",
+    "modality": "presencial",
+    "direct_url": "https://co.computrabajo.com/ofertas-de-trabajo/mock-presential-006",
+    "publication_date": "2026-09-15",
+    "salary_range": "$ 2.800.000 COP",
+    "source_portal": "computrabajo",
+    "raw_snippet": "Inspector SST presencial en planta de alimentos para control de EPPs y rondas de seguridad en turnos rotativos.",
+    "full_description": "Empresa manufacturera requiere Tecnólogo o Profesional en SST con licencia vigente para labor 100% presencial en planta industrial Yumbo. Turnos rotativos mañana, tarde y noche (6-2, 2-10, 10-6). Realizar inspección de extintores, control de permisos de trabajo en alturas y verificación de uso de elementos de protección personal.",
+    "experience_years_detected": 2.0,
+    "extra_metadata": {
+      "presential_strict": true
+    }
+  },
+  {
+    "id": "mock_nonmatch_007",
+    "title": "Ingeniero Civil Junior - Modelador BIM Revit Estructuras",
+    "company": "Edificaciones Modernas Bogotá",
+    "location": "Bogotá, Colombia (Remoto)",
+    "modality": "remoto",
+    "direct_url": "https://co.linkedin.com/jobs/view/mock-nonmatch-007",
+    "publication_date": "2026-09-19",
+    "salary_range": "$ 2.600.000 COP",
+    "source_portal": "linkedin",
+    "raw_snippet": "Modelado BIM Revit de edificios residenciales de concreto. Graduado reciente o 1 año experiencia.",
+    "full_description": "Estudio de arquitectura y cálculo estructural requiere Ingeniero Civil recién graduado o con máximo 1 año de experiencia para modelado BIM en Revit de estructuras de concreto y despiece de vigas para edificios de apartamentos. No se requiere experiencia en vías ni en seguridad ocupacional. Modalidad remota.",
+    "experience_years_detected": 1.0,
+    "extra_metadata": {
+      "domain": "structural_bim"
+    }
+  },
+  {
+    "id": "mock_nonmatch_008",
+    "title": "Especialista Hidráulico y Sanitario para Plantas de Tratamiento de Aguas Residuales (PTAR)",
+    "company": "Aguas y Cuencas Ambientales S.A.S. E.S.P.",
+    "location": "Medellín, Colombia",
+    "modality": "remoto",
+    "direct_url": "https://www.elempleo.com/co/ofertas-trabajo/mock-nonmatch-008",
+    "publication_date": "2026-09-18",
+    "salary_range": "$ 7.500.000 COP",
+    "source_portal": "elempleo",
+    "raw_snippet": "Diseño hidráulico y dimensionamiento de reactores biológicos para tratamiento de agua potable y residual.",
+    "full_description": "Ingeniero Civil o Sanitario con 10 años de experiencia específica en diseño hidráulico de sedimentadores, desarenadores y redes de distribución de agua potable. Dominio de WaterCAD y SewerGEMS. Vacante remota para consultoría hidrosanitaria.",
+    "experience_years_detected": 10.0,
+    "extra_metadata": {
+      "domain": "sanitary_hydraulics"
+    }
+  },
+  {
+    "id": "mock_nonmatch_009",
+    "title": "Practicante Universitario de Ingeniería Civil para Apoyo de Licitaciones",
+    "company": "Obras Civiles del Caribe S.A.S.",
+    "location": "Barranquilla, Colombia (Remoto)",
+    "modality": "remoto",
+    "direct_url": "https://co.computrabajo.com/ofertas-de-trabajo/mock-nonmatch-009",
+    "publication_date": "2026-09-17",
+    "salary_range": "$ 1.423.500 COP (SMLV)",
+    "source_portal": "computrabajo",
+    "raw_snippet": "Estudiante de últimos semestres para convenio de práctica o pasantía en apoyo de licitaciones públicas.",
+    "full_description": "Se solicita estudiante de último semestre de Ingeniería Civil con aval institucional para realizar pasantía / contrato de aprendizaje universitario. Apoyo en cotización de materiales, descarga de pliegos en SECOP II y archivo digital.",
+    "experience_years_detected": 0.0,
+    "extra_metadata": {
+      "internship": true
+    }
+  },
+  {
+    "id": "mock_edge_010",
+    "title": "Senior Highway & Bridge Design Engineer (US Remote - US Citizen/Green Card Only)",
+    "company": "American Transport Infrastructure LLC",
+    "location": "Remote - United States East Coast",
+    "modality": "remoto",
+    "direct_url": "https://remotive.com/remote-jobs/mock-edge-010",
+    "publication_date": "2026-09-20",
+    "salary_range": "$ 110,000 - $ 130,000 USD",
+    "source_portal": "remotive",
+    "raw_snippet": "Highway engineer for FDOT projects. Must reside in US and hold Florida PE license.",
+    "full_description": "We are seeking a Senior Highway Engineer with 15+ years experience in AASHTO and FDOT highway design. Strict requirement: Candidates must be US Citizens or Green Card holders with an active Florida Professional Engineer (PE) license. Not open to international applicants or applicants residing in Colombia.",
+    "experience_years_detected": 15.0,
+    "extra_metadata": {
+      "us_only": true,
+      "legal_restriction": true
+    }
+  },
+  {
+    "id": "mock_edge_011",
+    "title": "Ingeniero/a consultor vias y seguridad",
+    "company": "Consultores Generales",
+    "location": "Colombia",
+    "modality": "desconocido",
+    "direct_url": "https://co.computrabajo.com/ofertas-de-trabajo/mock-edge-011",
+    "publication_date": "Hace 2 semanas",
+    "salary_range": null,
+    "source_portal": "computrabajo",
+    "raw_snippet": "Requerimos profesional para apoyo en vias y sst. Horario flexible.",
+    "full_description": "Requerimos ing civil o afin para asesoria en vias y temas de sst. <script>alert(1)</script> Enviar hoja de vida con aspiracion salarial.",
+    "experience_years_detected": null,
+    "extra_metadata": {
+      "malformed": true
+    }
+  }
+]

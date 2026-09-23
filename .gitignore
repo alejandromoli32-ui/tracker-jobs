@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+
+# Entornos virtuales
+.venv/
+env/
+venv/
+ENV/
+
+# Testing & Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE & Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de Sistema Operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Netlify local cache
+.netlify/
+
+# Archivos temporales o de depuración local
+*.log
+scratch/
+temp_review_out/
+.agents/
+

@@ -1,0 +1,31 @@
+# Configuración de Despliegue en Netlify para Job Hunter Dashboard
+
+[build]
+  publish = "."
+
+# Encabezados HTTP para seguridad y frescura de datos
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Permitir descarga directa de reportes Excel y CSV
+[[headers]]
+  for = "/output/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+# Redirección canónica a la página principal
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/dashboard"
+  to = "/index.html"
+  status = 200

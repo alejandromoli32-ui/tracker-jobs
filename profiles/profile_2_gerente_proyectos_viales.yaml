@@ -1,0 +1,115 @@
+id: "profile_2_gerente_proyectos_viales"
+name: "Gerente / Directora de Proyectos de Infraestructura Vial"
+target_role: "Gerente de Proyectos de Infraestructura y Concesiones Viales"
+version: "1.0.0"
+active: true
+min_total_experience_years: 10
+
+experience:
+  min_total_years: 10
+  seniority_level: "Director / Gerente"
+  primary_discipline: "Ingeniería Civil / Gerencia de Proyectos"
+
+specializations:
+  gerencia_vial:
+    name: "Gerencia de Proyectos y Contratación Pública"
+    min_years: 5
+    weight: 35.0
+    keywords:
+      - "pmp"
+      - "gerencia de proyectos"
+      - "secop ii"
+      - "secop"
+      - "ley 80"
+      - "concesiones 4g"
+      - "concesiones 5g"
+      - "presupuestos de obra"
+      - "control financiero"
+      - "cronogramas"
+      - "primavera p6"
+      - "ms project"
+      - "interventoría técnica y administrativa"
+      - "ani"
+      - "invias"
+    boost_keywords:
+      - "pmp"
+      - "secop ii"
+      - "ley 80"
+      - "concesiones"
+
+  infraestructura:
+    name: "Supervisión de Infraestructura de Transporte"
+    min_years: 5
+    weight: 25.0
+    keywords:
+      - "infraestructura vial"
+      - "carreteras"
+      - "puentes"
+      - "corredores viales"
+      - "interventoría"
+      - "pliegos de condiciones"
+      - "gestión contractual"
+    boost_keywords:
+      - "infraestructura vial"
+      - "interventoría"
+
+modality:
+  strictly_remote: false
+  allowed_modalities:
+    - "remoto"
+    - "virtual"
+    - "teletrabajo"
+    - "hibrido"
+    - "híbrido"
+    - "hibrido flexible"
+  disqualifiers:
+    - "residente de obra presencial"
+    - "campamento 100%"
+    - "turnos 14x7 en campamento"
+    - "turnos 21x7 en campamento"
+    - "vivir en campamento"
+  allowed_countries:
+    - "Colombia"
+    - "Remoto"
+  geographic_disqualifiers:
+    - "must reside in usa"
+    - "us citizens only"
+    - "w2 only"
+
+required_credentials:
+  - "Tarjeta Profesional COPNIA"
+  - "Certificación PMP (Project Management Professional) o Especialización en Gerencia de Proyectos"
+
+search_queries:
+  - "Gerente proyectos civil remoto colombia"
+  - "Director interventoria vial teletrabajo"
+  - "Project manager infraestructura colombia remoto"
+  - "Gerente de contratos secop remoto"
+
+search_config:
+  locations:
+    - "Colombia"
+    - "Remoto"
+  modalities:
+    - "remoto"
+    - "virtual"
+    - "hibrido"
+  portals:
+    - "computrabajo"
+    - "elempleo"
+    - "linkedin"
+  max_pages_per_portal: 4
+  date_posted_limit_days: 30
+  query_strings:
+    - "Gerente proyectos civil remoto colombia"
+    - "Director interventoria vial teletrabajo"
+    - "Project manager infraestructura colombia remoto"
+
+scoring_weights:
+  modality: 25.0
+  seniority: 25.0
+  vias: 25.0
+  sst: 15.0
+  synergy_bonus: 10.0
+  min_score_to_save: 50.0
+  high_affinity_threshold: 70.0
