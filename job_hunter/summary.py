@@ -123,24 +123,44 @@ class ExplanatorySummaryGenerator:
             moderate_vias = 10.0 <= score_breakdown.vias_score < 18.0
             moderate_sst = 10.0 <= score_breakdown.sst_score < 18.0
 
-            if high_vias and high_sst:
-                reasons.append(
-                    f"Coincide plenamente con el perfil {profile.name}, integrando infraestructura vial y SG-SST (Sinergia dual)"
-                )
-            elif high_vias:
-                reasons.append("Alta coincidencia técnica en infraestructura vial, diseño geométrico y pavimentos")
-            elif high_sst:
-                reasons.append("Alta coincidencia en gestión de Seguridad y Salud en el Trabajo (SST)")
-            elif moderate_vias and moderate_sst:
-                reasons.append("Afinidad moderada con componentes de vías e infraestructura y seguridad laboral")
-            elif moderate_vias:
-                reasons.append("Afinidad parcial en infraestructura vial y transporte")
-            elif moderate_sst:
-                reasons.append("Afinidad parcial en seguridad y salud ocupacional")
-            elif score_breakdown.seniority_score >= 15.0:
-                reasons.append(f"Afinidad en disciplina base ({profile.target_role}) sin especialidad directa en vías/SST")
+            spec_keys = list(profile.specializations.keys()) if profile.specializations else []
+            spec_objs = list(profile.specializations.values()) if profile.specializations else []
+            is_civil_profile = "vias" in spec_keys or "sst" in spec_keys
+
+            if is_civil_profile:
+                if high_vias and high_sst:
+                    reasons.append(
+                        f"Coincide plenamente con el perfil {profile.name}, integrando infraestructura vial y SG-SST (Sinergia dual)"
+                    )
+                elif high_vias:
+                    reasons.append("Alta coincidencia técnica en infraestructura vial, diseño geométrico y pavimentos")
+                elif high_sst:
+                    reasons.append("Alta coincidencia en gestión de Seguridad y Salud en el Trabajo (SST)")
+                elif moderate_vias and moderate_sst:
+                    reasons.append("Afinidad moderada con componentes de vías e infraestructura y seguridad laboral")
+                elif moderate_vias:
+                    reasons.append("Afinidad parcial en infraestructura vial y transporte")
+                elif moderate_sst:
+                    reasons.append("Afinidad parcial en seguridad y salud ocupacional")
+                elif score_breakdown.seniority_score >= 15.0:
+                    reasons.append(f"Afinidad en disciplina base ({profile.target_role}) sin especialidad directa en vías/SST")
+                else:
+                    reasons.append("Baja correspondencia con las especialidades del perfil activo")
             else:
-                reasons.append("Baja correspondencia con las especialidades del perfil activo")
+                s1_name = spec_objs[0].name if len(spec_objs) > 0 else "Soporte de Sistemas"
+                s2_name = spec_objs[1].name if len(spec_objs) > 1 else "Programación y Automatización"
+                if high_vias and high_sst:
+                    reasons.append(f"Alta coincidencia técnica integral ({s1_name} y {s2_name})")
+                elif high_vias:
+                    reasons.append(f"Alta coincidencia técnica en {s1_name}")
+                elif high_sst:
+                    reasons.append(f"Alta coincidencia técnica en {s2_name}")
+                elif moderate_vias or moderate_sst:
+                    reasons.append(f"Afinidad moderada en áreas técnicas del cargo ({profile.target_role})")
+                elif score_breakdown.seniority_score >= 15.0:
+                    reasons.append(f"Afinidad en rol base ({profile.target_role})")
+                else:
+                    reasons.append("Baja correspondencia con los requerimientos técnicos del perfil")
 
         match_text = ". ".join(reasons)
 

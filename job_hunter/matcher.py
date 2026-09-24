@@ -230,8 +230,46 @@ class AffinityScorer:
         """
         penalty = 0.0
 
-        # 1. Check negative disciplines
+        # 1. Check negative disciplines and domain context
+        primary_disc = _strip_accents(
+            (profile.experience.primary_discipline if profile.experience else profile.target_role)
+            or ""
+        )
+        target_role = _strip_accents(profile.target_role or "")
+        combined_profile_desc = f"{primary_disc} {target_role} {profile.name}".lower()
+
+        is_tech_profile = any(
+            k in combined_profile_desc
+            for k in (
+                "sistem",
+                "software",
+                "program",
+                "desarroll",
+                "tecnolog",
+                "informatic",
+                "soporte",
+                "comput",
+                "ti",
+                "it",
+                "helpdesk",
+                "redes",
+            )
+        )
+
+        software_negative_patterns = {
+            r"desarrollador(?:\s*de)?\s*software",
+            r"software\s*engineer",
+            r"fullstack(?:\s*developer)?",
+            r"full\s*stack(?:\s*developer)?",
+            r"frontend(?:\s*developer)?",
+            r"backend(?:\s*developer)?",
+            r"python\s*/\s*react",
+            r"programador",
+        }
+
         for neg_pat in NEGATIVE_DISCIPLINES:
+            if is_tech_profile and neg_pat in software_negative_patterns:
+                continue
             if re.search(neg_pat, title_clean, flags=re.IGNORECASE) or re.search(
                 neg_pat, clean_text[:300], flags=re.IGNORECASE
             ):
@@ -239,42 +277,63 @@ class AffinityScorer:
 
         # 2. Title Match (0 to 15 pts)
         title_score = 0.0
-        primary_disc = _strip_accents(
-            (profile.experience.primary_discipline if profile.experience else profile.target_role)
-            or ""
-        )
-        target_role = _strip_accents(profile.target_role or "")
-
-        # High priority title and role matches
-        civil_tokens = [
-            r"ingenier[ao]\s*civil",
-            r"directora?\s*(?:/\s*coordinadora?\s*)?de\s*(?:dise[nñ]os?\s*viales|interventor[ií]a|proyectos?|infraestructura|obras|v[ií]as)",
-            r"coordinadora?\s*(?:de\s*)?(?:dise[nñ]os?\s*viales|interventor[ií]a|proyectos?|infraestructura|obras|v[ií]as|sst)",
-            r"gerente\s*(?:de\s*)?(?:proyectos?|interventor[ií]a|infraestructura|concesiones|v[ií]as)",
-            r"l[ií]der\s*t[eé]cnico",
-            r"interventor\s*vial",
-            r"interventor[ií]a\s*vial",
-            r"especialista\s*(?:senior\s*)?en\s*(?:v[ií]as|sst|seguridad\s*y\s*salud|infraestructura|pavimentos)",
-            r"dise[nñ]os?\s*viales",
-            r"infraestructura\s*vial",
-            r"especialista\s*vias",
-            r"especialista\s*sst",
-            r"coordinadora?\s*sst",
-        ]
-
         title_hit = False
-        for token in civil_tokens:
-            if re.search(token, title_clean, flags=re.IGNORECASE):
-                title_score = 15.0
-                title_hit = True
-                break
 
-        # Check if description explicitly specifies the target civil profession in opening
-        if not title_hit:
-            opening_text = clean_text[:350]
-            if re.search(r"\b(ingenier[ao]\s*civil|profesional\s*en\s*ingenier[ií]a\s*civil)\b", opening_text, flags=re.IGNORECASE):
-                title_score = 15.0
-                title_hit = True
+        if is_tech_profile:
+            tech_tokens = [
+                r"t[eé]cnic[oa]\s*(?:en\s*)?sistemas",
+                r"soporte\s*t[eé]cnic[oa]",
+                r"soporte\s*ti",
+                r"it\s*support",
+                r"help\s*desk",
+                r"mesa\s*de\s*ayuda",
+                r"auxiliar\s*(?:de\s*)?sistemas",
+                r"asistente\s*(?:de\s*)?sistemas",
+                r"analista\s*de\s*soporte",
+                r"soporte\s*(?:de\s*)?aplicaciones",
+                r"t[eé]cnic[oa]\s*(?:de\s*)?soporte",
+                r"t[eé]cnic[oa]\s*inform[aá]tic[oa]",
+                r"t[eé]cnic[oa]\s*(?:de\s*)?redes",
+                r"desarrollador(?:\s*junior|\s*jr)?",
+                r"programador(?:\s*junior|\s*jr)?",
+                r"soporte\s*(?:con\s*)?programaci[oó]n",
+                r"python",
+                r"sql",
+            ]
+            for token in tech_tokens:
+                if re.search(token, title_clean, flags=re.IGNORECASE):
+                    title_score = 15.0
+                    title_hit = True
+                    break
+        else:
+            # High priority title and role matches for civil / infrastructure
+            civil_tokens = [
+                r"ingenier[ao]\s*civil",
+                r"directora?\s*(?:/\s*coordinadora?\s*)?de\s*(?:dise[nñ]os?\s*viales|interventor[ií]a|proyectos?|infraestructura|obras|v[ií]as)",
+                r"coordinadora?\s*(?:de\s*)?(?:dise[nñ]os?\s*viales|interventor[ií]a|proyectos?|infraestructura|obras|v[ií]as|sst)",
+                r"gerente\s*(?:de\s*)?(?:proyectos?|interventor[ií]a|infraestructura|concesiones|v[ií]as)",
+                r"l[ií]der\s*t[eé]cnico",
+                r"interventor\s*vial",
+                r"interventor[ií]a\s*vial",
+                r"especialista\s*(?:senior\s*)?en\s*(?:v[ií]as|sst|seguridad\s*y\s*salud|infraestructura|pavimentos)",
+                r"dise[nñ]os?\s*viales",
+                r"infraestructura\s*vial",
+                r"especialista\s*vias",
+                r"especialista\s*sst",
+                r"coordinadora?\s*sst",
+            ]
+            for token in civil_tokens:
+                if re.search(token, title_clean, flags=re.IGNORECASE):
+                    title_score = 15.0
+                    title_hit = True
+                    break
+
+            # Check if description explicitly specifies the target civil profession in opening
+            if not title_hit:
+                opening_text = clean_text[:350]
+                if re.search(r"\b(ingenier[ao]\s*civil|profesional\s*en\s*ingenier[ií]a\s*civil)\b", opening_text, flags=re.IGNORECASE):
+                    title_score = 15.0
+                    title_hit = True
 
         if not title_hit:
             # Check target role keywords in title
@@ -293,16 +352,25 @@ class AffinityScorer:
                     "asesor",
                     "asesora",
                     "calculista",
+                    "tecnico",
+                    "tecnica",
+                    "analista",
+                    "programador",
+                    "programadora",
+                    "desarrollador",
+                    "desarrolladora",
                 ]
             ):
                 title_score = 10.0
-            elif any(w in title_clean for w in ["coordinador", "coordinadora", "director", "gerente", "jefe"]):
+            elif any(w in title_clean for w in ["coordinador", "coordinadora", "director", "gerente", "jefe", "lider"]):
                 title_score = 5.0
             else:
                 title_score = 0.0
 
         # 3. Experience Match (0 to 10 pts)
         exp_score = 0.0
+        min_exp = profile.min_total_experience_years if profile.min_total_experience_years is not None else 5
+        is_senior_profile = min_exp >= 5
 
         # Check junior markers
         is_junior = False
@@ -314,31 +382,45 @@ class AffinityScorer:
                 break
 
         if is_junior:
-            penalty += 10.0
-            exp_score = 0.0
+            if is_senior_profile:
+                penalty += 10.0
+                exp_score = 0.0
+            else:
+                # Junior/technician profile actively welcomes entry positions
+                exp_score = 10.0
         else:
             # Detect numeric years
             detected_years = self._extract_experience_years(clean_text, vacancy)
 
             if detected_years is not None:
-                if detected_years >= 10.0:
-                    exp_score = 10.0
-                elif detected_years >= 5.0:
-                    exp_score = 7.0
-                elif detected_years >= 2.0:
-                    exp_score = 5.0
+                if is_senior_profile:
+                    if detected_years >= 10.0:
+                        exp_score = 10.0
+                    elif detected_years >= 5.0:
+                        exp_score = 7.0
+                    elif detected_years >= 2.0:
+                        exp_score = 5.0
+                    else:
+                        # 0-1 years
+                        penalty += 10.0
+                        exp_score = 0.0
                 else:
-                    # 0-1 years
-                    penalty += 10.0
-                    exp_score = 0.0
+                    # Technician/Junior profile
+                    if detected_years <= 3.0:
+                        exp_score = 10.0
+                    elif detected_years <= 5.0:
+                        exp_score = 8.0
+                    else:
+                        exp_score = 6.0
             else:
-                # Check senior tokens
-                has_senior_token = any(re.search(pat, clean_text, flags=re.IGNORECASE) for pat in SENIOR_TOKENS)
-                if has_senior_token:
-                    exp_score = 10.0
+                if is_senior_profile:
+                    has_senior_token = any(re.search(pat, clean_text, flags=re.IGNORECASE) for pat in SENIOR_TOKENS)
+                    if has_senior_token:
+                        exp_score = 10.0
+                    else:
+                        exp_score = 5.0
                 else:
-                    # Unstated years default
-                    exp_score = 5.0
+                    exp_score = 8.0
 
         total_seniority = max(0.0, min(25.0, title_score + exp_score))
         return total_seniority, penalty, False

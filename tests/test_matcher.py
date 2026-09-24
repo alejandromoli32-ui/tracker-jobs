@@ -688,6 +688,31 @@ class TestMultiProfileMatching:
         assert res.total_score >= 70.0
         assert not res.is_disqualified
 
+    def test_profile_5_tecnico_sistemas(self, scorer):
+        p5 = load_profile("profile_5_tecnico_sistemas")
+        vac = NormalizedVacancy(
+            id="p5_test",
+            title="Técnico en Sistemas y Soporte TI Remoto (Python / SQL)",
+            company="TechCorp Services",
+            direct_url="https://example.com/p5",
+            location="Colombia (Remoto)",
+            modality="remoto",
+            source_portal="computrabajo",
+            full_description=(
+                "Empresa busca Técnico en Sistemas con 1 año de experiencia para soporte técnico TI, "
+                "help desk, atención de tickets en Jira, diagnóstico de redes y soporte a usuarios. "
+                "Deseable conocimientos en automatización con scripts de Python, PowerShell y consultas SQL. "
+                "Modalidad 100% remoto en Colombia."
+            ),
+        )
+        res = scorer.evaluate(vac, p5)
+        assert res.total_score >= 75.0
+        assert not res.is_disqualified
+        assert res.modality_score == 25.0
+        assert res.seniority_score >= 20.0
+        assert "python" in [k.lower() for k in res.matched_keywords]
+        assert "soporte tecnico" in [k.lower() for k in res.matched_keywords]
+
     def test_fixtures_json_evaluation(self, scorer, profile_1):
         """Evaluate all mock vacancies from mock_vacancies.json to verify stability."""
         fixture_path = Path(__file__).resolve().parent.parent / "job_hunter" / "fixtures" / "mock_vacancies.json"

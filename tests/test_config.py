@@ -111,6 +111,22 @@ def test_load_profile_4_consultor_hseq_sig():
     assert profile.modality.strictly_remote is True
 
 
+def test_load_profile_5_tecnico_sistemas():
+    """Verify Profile 5 (Técnico en Sistemas y Soporte TI Remoto con Programación) loads correctly."""
+    profile = load_profile("profile_5_tecnico_sistemas", profiles_dir=PROFILES_DIR)
+
+    assert isinstance(profile, ProfileConfig)
+    assert profile.id == "profile_5_tecnico_sistemas"
+    assert "Técnico en Sistemas" in profile.name
+    assert profile.min_total_experience_years == 1
+    assert "soporte_ti" in profile.specializations
+    assert "programacion_automatizacion" in profile.specializations
+    assert profile.modality.strictly_remote is True
+    assert any("python" in kw.lower() for kw in profile.specializations["programacion_automatizacion"].keywords)
+    assert any("sql" in kw.lower() for kw in profile.specializations["programacion_automatizacion"].keywords)
+    assert any("help desk" in kw.lower() for kw in profile.specializations["soporte_ti"].keywords)
+
+
 # =============================================================================
 # 2. Path vs ID Resolution and Discovery Tests
 # =============================================================================

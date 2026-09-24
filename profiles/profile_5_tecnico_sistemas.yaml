@@ -1,0 +1,173 @@
+id: "profile_5_tecnico_sistemas"
+name: "Técnico en Sistemas y Soporte TI Remoto (con Programación)"
+target_role: "Técnico en Sistemas / Soporte TI Remoto"
+version: "1.0.0"
+active: true
+min_total_experience_years: 1
+
+experience:
+  min_total_years: 1
+  seniority_level: "Técnico / Junior / Mid"
+  primary_discipline: "Sistemas e Informática"
+
+specializations:
+  soporte_ti:
+    name: "Soporte Técnico de Sistemas, Hardware y Redes"
+    min_years: 1
+    weight: 25.0
+    keywords:
+      - "soporte tecnico"
+      - "soporte técnico"
+      - "tecnico en sistemas"
+      - "técnico en sistemas"
+      - "help desk"
+      - "helpdesk"
+      - "mesa de ayuda"
+      - "soporte ti"
+      - "soporte it"
+      - "soporte l1"
+      - "soporte l2"
+      - "mantenimiento preventivo"
+      - "mantenimiento correctivo"
+      - "redes"
+      - "active directory"
+      - "windows server"
+      - "office 365"
+      - "jira"
+      - "glpi"
+      - "tickets"
+      - "vpn"
+      - "itil"
+      - "soporte a usuarios"
+      - "diagnostico de hardware"
+      - "cableado estructurado"
+      - "soporte computadores"
+    boost_keywords:
+      - "soporte tecnico"
+      - "tecnico en sistemas"
+      - "help desk"
+      - "soporte ti"
+      - "mesa de ayuda"
+
+  programacion_automatizacion:
+    name: "Programación, Scripts, SQL y Automatización"
+    min_years: 1
+    weight: 25.0
+    keywords:
+      - "python"
+      - "sql"
+      - "mysql"
+      - "postgresql"
+      - "sql server"
+      - "scripts"
+      - "bash"
+      - "powershell"
+      - "automatizacion"
+      - "automatización"
+      - "javascript"
+      - "html"
+      - "css"
+      - "git"
+      - "github"
+      - "api rest"
+      - "apis"
+      - "soporte de aplicaciones"
+      - "consultas sql"
+      - "etl"
+      - "desarrollo web"
+      - "scripting"
+      - "postman"
+    boost_keywords:
+      - "python"
+      - "sql"
+      - "scripts"
+      - "automatizacion"
+      - "powershell"
+
+modality:
+  strictly_remote: true
+  allowed_modalities:
+    - "remoto"
+    - "virtual"
+    - "teletrabajo"
+    - "100% remoto"
+    - "trabajo desde casa"
+    - "home office"
+    - "trabajo a distancia"
+    - "wfh"
+  allowed_presencial_cities: []
+  disqualifiers:
+    - "presencial"
+    - "100% presencial"
+    - "totalmente presencial"
+    - "labor presencial"
+    - "horario presencial"
+    - "esquema presencial"
+    - "semipresencial"
+    - "en sitio"
+    - "en oficina"
+    - "turnos rotativos en sitio"
+    - "trabajo en campo"
+  allowed_countries:
+    - "Colombia"
+    - "Remoto Nacional"
+    - "Latinoamérica"
+    - "Cualquier ciudad"
+    - "Global"
+  geographic_disqualifiers:
+    - "must reside in usa"
+    - "us citizens only"
+    - "w2 only"
+    - "green card required"
+    - "residencia obligatoria en españa"
+    - "residir en santiago de chile"
+
+required_credentials:
+  - "Título Técnico / Tecnólogo o Profesional en Sistemas, Informática o afines"
+
+search_queries:
+  - "Tecnico en Sistemas Remoto"
+  - "Soporte Tecnico Remoto"
+  - "Help Desk Remoto Colombia"
+  - "Soporte TI Remoto"
+  - "Soporte Tecnico Python SQL"
+  - "Auxiliar de Sistemas Remoto"
+  - "IT Support Remote Colombia"
+  - "Soporte de Aplicaciones Remoto"
+  - "Tecnico Soporte Scripts SQL"
+  - "Analista de Soporte Remoto"
+
+search_config:
+  locations:
+    - "Colombia"
+    - "Remoto"
+  modalities:
+    - "remoto"
+    - "virtual"
+    - "teletrabajo"
+  portals:
+    - "computrabajo"
+    - "elempleo"
+    - "linkedin"
+    - "remotive"
+  max_pages_per_portal: 3
+  date_posted_limit_days: 30
+  query_strings:
+    - "Tecnico en Sistemas Remoto"
+    - "Soporte Tecnico Remoto"
+    - "Help Desk Remoto Colombia"
+    - "Soporte TI Remoto"
+    - "Soporte Tecnico Python SQL"
+    - "Auxiliar de Sistemas Remoto"
+    - "IT Support Remote Colombia"
+    - "Soporte de Aplicaciones Remoto"
+    - "Analista Soporte Virtual"
+
+scoring_weights:
+  modality: 25.0
+  seniority: 25.0
+  soporte_ti: 25.0
+  programacion_automatizacion: 25.0
+  synergy_bonus: 10.0
+  min_score_to_save: 50.0
+  high_affinity_threshold: 70.0

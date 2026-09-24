@@ -151,16 +151,25 @@ def run_daily_update(
 
 def main():
     parser = argparse.ArgumentParser(description="Job Hunter Autobuscador Diario")
-    parser.add_argument("--profile", default="profile_1_civil_vias_sst", help="ID del perfil a buscar")
+    parser.add_argument("--profile", default="all", help="ID del perfil a buscar o 'all' para todos")
     parser.add_argument("--pages", type=int, default=2, help="Páginas por portal a consultar")
     parser.add_argument("--offline", action="store_true", help="Ejecutar en modo offline de prueba")
     args = parser.parse_args()
 
-    run_daily_update(
-        profile_id=args.profile,
-        max_pages=args.pages,
-        offline=args.offline,
-    )
+    if args.profile.lower() == "all":
+        target_profiles = ["profile_1_civil_vias_sst", "profile_5_tecnico_sistemas"]
+        for pid in target_profiles:
+            run_daily_update(
+                profile_id=pid,
+                max_pages=args.pages,
+                offline=args.offline,
+            )
+    else:
+        run_daily_update(
+            profile_id=args.profile,
+            max_pages=args.pages,
+            offline=args.offline,
+        )
 
 
 if __name__ == "__main__":
