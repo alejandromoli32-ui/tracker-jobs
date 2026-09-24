@@ -127,6 +127,21 @@ def test_load_profile_5_tecnico_sistemas():
     assert any("help desk" in kw.lower() for kw in profile.specializations["soporte_ti"].keywords)
 
 
+def test_load_profile_6_auxiliar_administrativo():
+    """Verify Profile 6 (Auxiliar Administrativo y Asistente Virtual 100% Remoto) loads correctly."""
+    profile = load_profile("profile_6_auxiliar_administrativo", profiles_dir=PROFILES_DIR)
+
+    assert isinstance(profile, ProfileConfig)
+    assert profile.id == "profile_6_auxiliar_administrativo"
+    assert "Auxiliar Administrativo" in profile.name
+    assert profile.min_total_experience_years == 1
+    assert "gestion_administrativa_documental" in profile.specializations
+    assert "herramientas_ofimatica_contabilidad" in profile.specializations
+    assert profile.modality.strictly_remote is True
+    assert any("excel" in kw.lower() for kw in profile.specializations["herramientas_ofimatica_contabilidad"].keywords)
+    assert any("asistente virtual" in kw.lower() for kw in profile.specializations["gestion_administrativa_documental"].keywords)
+
+
 # =============================================================================
 # 2. Path vs ID Resolution and Discovery Tests
 # =============================================================================

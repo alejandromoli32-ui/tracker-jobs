@@ -1,0 +1,195 @@
+id: "profile_6_auxiliar_administrativo"
+name: "Auxiliar Administrativo y Asistente Virtual 100% Remoto"
+target_role: "Auxiliar Administrativo / Asistente Virtual"
+version: "1.0.0"
+active: true
+min_total_experience_years: 1
+
+experience:
+  min_total_years: 1
+  seniority_level: "Auxiliar / Asistente / Técnico"
+  primary_discipline: "Administración, Asistencia Virtual y Gestión Ofimática"
+
+specializations:
+  gestion_administrativa_documental:
+    name: "Gestión Administrativa, Documental y Archivo"
+    min_years: 1
+    weight: 25.0
+    keywords:
+      - "auxiliar administrativo"
+      - "auxiliar administrativa"
+      - "asistente administrativo"
+      - "asistente administrativa"
+      - "asistente virtual"
+      - "gestion documental"
+      - "gestión documental"
+      - "archivo"
+      - "correspondencia"
+      - "atencion al cliente"
+      - "atención al cliente"
+      - "atencion a usuarios"
+      - "atención a usuarios"
+      - "redaccion de informes"
+      - "redacción de informes"
+      - "gestion de agenda"
+      - "gestión de agenda"
+      - "digitacion"
+      - "digitación"
+      - "digitador"
+      - "digitadora"
+      - "data entry"
+      - "ingreso de datos"
+      - "secretaria"
+      - "secretaria virtual"
+      - "secretaria ejecutiva"
+      - "asistente ejecutiva"
+      - "auxiliar de oficina"
+      - "auxiliar contable y administrativo"
+      - "auxiliar administrativo y contable"
+      - "tramites administrativos"
+      - "trámites administrativos"
+      - "servicio al cliente"
+    boost_keywords:
+      - "auxiliar administrativo"
+      - "asistente administrativo"
+      - "asistente virtual"
+      - "gestion documental"
+      - "atencion al cliente"
+
+  herramientas_ofimatica_contabilidad:
+    name: "Herramientas Ofimáticas, Excel y Soporte Contable / Facturación"
+    min_years: 1
+    weight: 25.0
+    keywords:
+      - "excel"
+      - "excel avanzado"
+      - "excel intermedio"
+      - "tablas dinamicas"
+      - "tablas dinámicas"
+      - "formulas excel"
+      - "microsoft office"
+      - "office 365"
+      - "word"
+      - "powerpoint"
+      - "google sheets"
+      - "google drive"
+      - "facturacion"
+      - "facturación"
+      - "facturacion electronica"
+      - "facturación electrónica"
+      - "siigo"
+      - "helisa"
+      - "sap"
+      - "siesa"
+      - "concar"
+      - "software contable"
+      - "conciliaciones bancarias"
+      - "cuentas por pagar"
+      - "cuentas por cobrar"
+      - "causaciones"
+      - "recibos de caja"
+      - "erp"
+      - "crm"
+      - "trello"
+      - "slack"
+    boost_keywords:
+      - "excel"
+      - "google sheets"
+      - "office 365"
+      - "facturacion"
+      - "siigo"
+
+modality:
+  strictly_remote: true
+  allowed_modalities:
+    - "remoto"
+    - "virtual"
+    - "teletrabajo"
+    - "100% remoto"
+    - "trabajo desde casa"
+    - "home office"
+    - "trabajo a distancia"
+    - "wfh"
+  allowed_presencial_cities: []
+  disqualifiers:
+    - "presencial"
+    - "100% presencial"
+    - "totalmente presencial"
+    - "labor presencial"
+    - "horario presencial"
+    - "esquema presencial"
+    - "semipresencial"
+    - "en sitio"
+    - "en oficina"
+    - "en sede"
+    - "turnos rotativos en sitio"
+    - "trabajo en campo"
+    - "software architect"
+    - "arquitecto de software"
+    - "ingeniero de sistemas"
+    - "ingeniero civil"
+    - "director"
+    - "gerente general"
+  allowed_countries:
+    - "Colombia"
+    - "Remoto Nacional"
+    - "Latinoamérica"
+    - "Cualquier ciudad"
+    - "Global"
+  geographic_disqualifiers:
+    - "must reside in usa"
+    - "us citizens only"
+    - "w2 only"
+    - "green card required"
+    - "residencia obligatoria en españa"
+    - "residir en santiago de chile"
+
+required_credentials:
+  - "Bachiller, Técnico o Tecnólogo en Asistencia Administrativa, Gestión Documental, Secretariado o carreras afines"
+
+search_queries:
+  - "Auxiliar Administrativo Remoto"
+  - "Asistente Virtual Remoto"
+  - "Asistente Administrativo Remoto"
+  - "Auxiliar Administrativo Teletrabajo"
+  - "Auxiliar Contable y Administrativo Remoto"
+  - "Data Entry Remoto Colombia"
+  - "Digitador Remoto Colombia"
+  - "Asistente Virtual Colombia"
+  - "Secretaria Virtual Remota"
+  - "Auxiliar de Facturacion Remoto"
+
+search_config:
+  locations:
+    - "Colombia"
+    - "Remoto"
+  modalities:
+    - "remoto"
+    - "virtual"
+    - "teletrabajo"
+  portals:
+    - "computrabajo"
+    - "elempleo"
+    - "linkedin"
+    - "remotive"
+  max_pages_per_portal: 3
+  date_posted_limit_days: 30
+  query_strings:
+    - "Auxiliar Administrativo Remoto"
+    - "Asistente Virtual Remoto"
+    - "Asistente Administrativo Remoto"
+    - "Auxiliar Administrativo Teletrabajo"
+    - "Auxiliar Contable y Administrativo Remoto"
+    - "Data Entry Remoto Colombia"
+    - "Digitador Remoto Colombia"
+    - "Asistente Virtual Colombia"
+    - "Secretaria Virtual Remota"
+
+scoring_weights:
+  modality: 25.0
+  seniority: 25.0
+  gestion_administrativa_documental: 25.0
+  herramientas_ofimatica_contabilidad: 25.0
+  synergy_bonus: 10.0
+  min_score_to_save: 50.0
+  high_affinity_threshold: 70.0

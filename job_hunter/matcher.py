@@ -262,6 +262,19 @@ class AffinityScorer:
             )
         )
 
+        is_admin_profile = any(
+            k in combined_profile_desc
+            for k in (
+                "administrativ",
+                "asistente virtual",
+                "recepcionista",
+                "secretari",
+                "digitador",
+                "gestion documental",
+                "ofimatica",
+            )
+        )
+
         software_negative_patterns = {
             r"desarrollador(?:\s*de)?\s*software",
             r"software\s*engineer",
@@ -318,47 +331,81 @@ class AffinityScorer:
             ):
                 return 0.0, 100.0, True
 
-            # High priority technician and IT support tokens (15 pts)
-            tech_primary_tokens = [
-                r"t[eé]cnic[oa]\s*(?:en\s*|de\s*)?sistemas",
-                r"t[eé]cnic[oa]\s*(?:de\s*)?soporte",
-                r"t[eé]cnic[oa]\s*inform[aá]tic[oa]",
-                r"t[eé]cnic[oa]\s*(?:de\s*)?redes",
-                r"t[eé]cnic[oa]\s*computadores",
-                r"t[eé]cnic[oa]\s*(?:o\s*tecn[oó]log[oa]\s*)?en\s*sistemas",
-                r"auxiliar\s*(?:de\s*)?sistemas",
-                r"auxiliar\s*(?:de\s*)?ti",
-                r"auxiliar\s*(?:de\s*)?soporte",
-                r"auxiliar\s*de\s*infraestructura",
-                r"asistente\s*(?:de\s*)?sistemas",
-                r"asistente\s*(?:de\s*)?ti",
-                r"soporte\s*t[eé]cnic[oa]",
-                r"help\s*desk",
-                r"helpdesk",
-                r"mesa\s*de\s*ayuda",
-                r"soporte\s*ti",
-                r"soporte\s*it",
-                r"soporte\s*l1",
-                r"soporte\s*l2",
-                r"soporte\s*nivel\s*1",
-                r"soporte\s*nivel\s*2",
-                r"gestor\s*t[eé]cnico",
-                r"operador(?:\s*de)?\s*(?:mesa\s*de\s*ayuda|soporte)",
-                r"agente\s*(?:de\s*)?(?:soporte|mesa\s*de\s*ayuda)",
-                r"soporte\s*(?:de\s*)?aplicaciones",
-                r"analista\s*(?:de\s*)?soporte",
-                r"analista\s*(?:de\s*)?mesa\s*de\s*ayuda",
-                r"consultor\s*(?:de\s*)?soporte",
-                r"soporte\s*sql",
-                r"it\s*support",
-                r"representante\s*de\s*soporte",
-                r"asesor(?:es)?\s*de\s*soporte",
-            ]
-            for token in tech_primary_tokens:
-                if re.search(token, title_clean, flags=re.IGNORECASE):
-                    title_score = 15.0
-                    title_hit = True
-                    break
+            if is_admin_profile:
+                # High priority administrative assistant / virtual assistant tokens (15 pts)
+                admin_primary_tokens = [
+                    r"auxiliar\s*administrativ[oa]",
+                    r"asistente\s*administrativ[oa]",
+                    r"asistente\s*virtual",
+                    r"auxiliar\s*contable\s*y\s*administrativ[oa]",
+                    r"auxiliar\s*administrativ[oa]\s*y\s*contable",
+                    r"auxiliar\s*(?:de\s*)?oficina",
+                    r"asistente\s*(?:de\s*)?oficina",
+                    r"secretari[oa]\s*administrativ[oa]",
+                    r"secretari[oa]\s*virtual",
+                    r"secretari[oa]\s*ejecutiv[oa]",
+                    r"asistente\s*ejecutiv[oa]",
+                    r"auxiliar\s*(?:de\s*)?facturaci[oó]n",
+                    r"asistente\s*(?:de\s*)?facturaci[oó]n",
+                    r"auxiliar\s*(?:de\s*)?gesti[oó]n\s*documental",
+                    r"asistente\s*(?:de\s*)?operaciones",
+                    r"digitador[ao]?",
+                    r"data\s*entry",
+                    r"digitaci[oó]n",
+                    r"recepcionista\s*virtual",
+                    r"asistente\s*de\s*gerencia",
+                    r"auxiliar\s*operativ[oa]\s*administrativ[oa]",
+                    r"auxiliar\s*(?:de\s*)?archivo",
+                    r"auxiliar\s*(?:de\s*)?servicio\s*al\s*cliente",
+                    r"asistente\s*(?:de\s*)?servicio\s*al\s*cliente",
+                ]
+                for token in admin_primary_tokens:
+                    if re.search(token, title_clean, flags=re.IGNORECASE):
+                        title_score = 15.0
+                        title_hit = True
+                        break
+            else:
+                # High priority technician and IT support tokens (15 pts)
+                tech_primary_tokens = [
+                    r"t[eé]cnic[oa]\s*(?:en\s*|de\s*)?sistemas",
+                    r"t[eé]cnic[oa]\s*(?:de\s*)?soporte",
+                    r"t[eé]cnic[oa]\s*inform[aá]tic[oa]",
+                    r"t[eé]cnic[oa]\s*(?:de\s*)?redes",
+                    r"t[eé]cnic[oa]\s*computadores",
+                    r"t[eé]cnic[oa]\s*(?:o\s*tecn[oó]log[oa]\s*)?en\s*sistemas",
+                    r"auxiliar\s*(?:de\s*)?sistemas",
+                    r"auxiliar\s*(?:de\s*)?ti",
+                    r"auxiliar\s*(?:de\s*)?soporte",
+                    r"auxiliar\s*de\s*infraestructura",
+                    r"asistente\s*(?:de\s*)?sistemas",
+                    r"asistente\s*(?:de\s*)?ti",
+                    r"soporte\s*t[eé]cnic[oa]",
+                    r"help\s*desk",
+                    r"helpdesk",
+                    r"mesa\s*de\s*ayuda",
+                    r"soporte\s*ti",
+                    r"soporte\s*it",
+                    r"soporte\s*l1",
+                    r"soporte\s*l2",
+                    r"soporte\s*nivel\s*1",
+                    r"soporte\s*nivel\s*2",
+                    r"gestor\s*t[eé]cnico",
+                    r"operador(?:\s*de)?\s*(?:mesa\s*de\s*ayuda|soporte)",
+                    r"agente\s*(?:de\s*)?(?:soporte|mesa\s*de\s*ayuda)",
+                    r"soporte\s*(?:de\s*)?aplicaciones",
+                    r"analista\s*(?:de\s*)?soporte",
+                    r"analista\s*(?:de\s*)?mesa\s*de\s*ayuda",
+                    r"consultor\s*(?:de\s*)?soporte",
+                    r"soporte\s*sql",
+                    r"it\s*support",
+                    r"representante\s*de\s*soporte",
+                    r"asesor(?:es)?\s*de\s*soporte",
+                ]
+                for token in tech_primary_tokens:
+                    if re.search(token, title_clean, flags=re.IGNORECASE):
+                        title_score = 15.0
+                        title_hit = True
+                        break
         elif is_tech_profile:
             tech_tokens = [
                 r"t[eé]cnic[oa]\s*(?:en\s*)?sistemas",

@@ -157,7 +157,11 @@ def main():
     args = parser.parse_args()
 
     if args.profile.lower() == "all":
-        target_profiles = ["profile_1_civil_vias_sst", "profile_5_tecnico_sistemas"]
+        target_profiles = [
+            "profile_1_civil_vias_sst",
+            "profile_5_tecnico_sistemas",
+            "profile_6_auxiliar_administrativo",
+        ]
         for pid in target_profiles:
             run_daily_update(
                 profile_id=pid,

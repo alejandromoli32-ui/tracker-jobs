@@ -733,6 +733,32 @@ class TestMultiProfileMatching:
         assert res.total_score == 0.0
         assert res.is_disqualified is True
 
+    def test_profile_6_auxiliar_administrativo(self, scorer):
+        """Auxiliar Administrativo profile matches remote administrative and data entry jobs."""
+        p6 = load_profile("profile_6_auxiliar_administrativo")
+        admin_vac = NormalizedVacancy(
+            id="p6_test",
+            title="Auxiliar Administrativo y Asistente Virtual 100% Remoto",
+            company="Servicios Empresariales SAS",
+            direct_url="https://example.com/p6",
+            location="Colombia (Remoto)",
+            modality="remoto",
+            source_portal="computrabajo",
+            full_description=(
+                "Buscamos Auxiliar Administrativo con 1 año de experiencia para gestión documental, "
+                "manejo de agenda, atención a clientes por correo, archivo digital y facturación. "
+                "Manejo de Excel intermedio (tablas dinámicas), Google Sheets y Office 365. "
+                "Modalidad 100% virtual / teletrabajo nacional en Colombia."
+            ),
+        )
+        res = scorer.evaluate(admin_vac, p6)
+        assert res.total_score >= 75.0
+        assert not res.is_disqualified
+        assert res.modality_score == 25.0
+        assert res.seniority_score >= 20.0
+        assert "excel" in [k.lower() for k in res.matched_keywords]
+        assert "auxiliar administrativo" in [k.lower() for k in res.matched_keywords]
+
     def test_fixtures_json_evaluation(self, scorer, profile_1):
         """Evaluate all mock vacancies from mock_vacancies.json to verify stability."""
         fixture_path = Path(__file__).resolve().parent.parent / "job_hunter" / "fixtures" / "mock_vacancies.json"

@@ -112,8 +112,8 @@ def classify_candidate_modality(title: str, url: str, profile_id: str = "profile
     """Classifies modality strictly according to candidate's constraint."""
     t_u = f"{title} {url}".lower()
 
-    if profile_id == "profile_5_tecnico_sistemas":
-        # Profile 5: Strictly 100% Remote / Teletrabajo
+    if profile_id in ("profile_5_tecnico_sistemas", "profile_6_auxiliar_administrativo"):
+        # Strictly 100% Remote / Teletrabajo
         is_presencial = any(p in t_u for p in ("presencial", "en oficina", "en sitio", "sede"))
         if is_presencial:
             return {
@@ -354,14 +354,18 @@ def build_dashboard_html(profiles_data: Dict[str, Any], initial_profile_id: str 
       </div>
 
       <!-- PROFILE SELECTOR TABS IN NAVBAR -->
-      <div class="flex items-center gap-1.5 p-1 bg-slate-900/90 rounded-xl border border-slate-800 shadow-inner">
+      <div class="flex items-center gap-1.5 p-1 bg-slate-900/90 rounded-xl border border-slate-800 shadow-inner flex-wrap sm:flex-nowrap">
         <button onclick="switchProfile('profile_1_civil_vias_sst')" id="tab-p1" 
           class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-white bg-cyan-600 shadow-md">
-          <span>👷‍♀️ Ing. Civil (Vías & SST)</span>
+          <span>👷‍♀️ Ing. Civil</span>
         </button>
         <button onclick="switchProfile('profile_5_tecnico_sistemas')" id="tab-p5" 
           class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800">
-          <span>💻 Técnico Sistemas (TI & Prog.)</span>
+          <span>💻 Técnico Sistemas</span>
+        </button>
+        <button onclick="switchProfile('profile_6_auxiliar_administrativo')" id="tab-p6" 
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          <span>📋 Auxiliar Administrativo</span>
         </button>
       </div>
 
@@ -612,15 +616,19 @@ def build_dashboard_html(profiles_data: Dict[str, Any], initial_profile_id: str 
       INITIAL_VACANCIES = PROFILES_DATA[profileId].vacancies;
 
       // Update tabs styling
-      const p1Tab = document.getElementById('tab-p1');
-      const p5Tab = document.getElementById('tab-p5');
-      if (profileId === 'profile_1_civil_vias_sst') {{
-        p1Tab.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-white bg-cyan-600 shadow-md';
-        p5Tab.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800';
-      }} else {{
-        p5Tab.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-white bg-cyan-600 shadow-md';
-        p1Tab.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800';
-      }}
+      const tabs = {{
+        profile_1_civil_vias_sst: document.getElementById('tab-p1'),
+        profile_5_tecnico_sistemas: document.getElementById('tab-p5'),
+        profile_6_auxiliar_administrativo: document.getElementById('tab-p6')
+      }};
+      Object.entries(tabs).forEach(([id, tab]) => {{
+        if (!tab) return;
+        if (id === profileId) {{
+          tab.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-white bg-cyan-600 shadow-md';
+        }} else {{
+          tab.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800';
+        }}
+      }});
 
       // Update Profile Banner
       const p = PROFILES_DATA[profileId];
@@ -753,8 +761,11 @@ def build_dashboard_html(profiles_data: Dict[str, Any], initial_profile_id: str 
         const isSst = v.resumen.toLowerCase().includes('sst') || v.resumen.toLowerCase().includes('seguridad');
         const isPython = v.resumen.toLowerCase().includes('python') || v.titulo.toLowerCase().includes('python');
         const isSql = v.resumen.toLowerCase().includes('sql') || v.titulo.toLowerCase().includes('sql');
-        const isSupport = v.resumen.toLowerCase().includes('soporte') || v.titulo.toLowerCase().includes('help desk') || v.titulo.toLowerCase().includes('mesa de ayuda');
         const isAuto = v.resumen.toLowerCase().includes('automatiz') || v.resumen.toLowerCase().includes('script');
+        const isAdmin = v.resumen.toLowerCase().includes('administrativ') || v.titulo.toLowerCase().includes('administrativ') || v.titulo.toLowerCase().includes('asistente') || v.titulo.toLowerCase().includes('secretaria');
+        const isExcel = v.resumen.toLowerCase().includes('excel') || v.titulo.toLowerCase().includes('excel') || v.resumen.toLowerCase().includes('office');
+        const isFacturacion = v.resumen.toLowerCase().includes('facturaci') || v.titulo.toLowerCase().includes('facturaci') || v.resumen.toLowerCase().includes('contable') || v.titulo.toLowerCase().includes('contable');
+        const isDigitacion = v.resumen.toLowerCase().includes('digitaci') || v.titulo.toLowerCase().includes('digitad') || v.titulo.toLowerCase().includes('data entry');
 
         let scoreBadgeClass = 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40';
         if (v.score >= 70) scoreBadgeClass = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
@@ -808,6 +819,10 @@ def build_dashboard_html(profiles_data: Dict[str, Any], initial_profile_id: str 
                 ${{isPython ? '<span class="px-1.5 py-0.5 rounded bg-amber-950/60 text-amber-400 text-[10px] font-semibold border border-amber-800/40">Python / Scripts</span>' : ''}}
                 ${{isSql ? '<span class="px-1.5 py-0.5 rounded bg-purple-950/60 text-purple-400 text-[10px] font-semibold border border-purple-800/40">SQL / Bases Datos</span>' : ''}}
                 ${{isAuto ? '<span class="px-1.5 py-0.5 rounded bg-emerald-950/60 text-emerald-400 text-[10px] font-semibold border border-emerald-800/40">Automatización</span>' : ''}}
+                ${{isAdmin ? '<span class="px-1.5 py-0.5 rounded bg-sky-950/60 text-sky-400 text-[10px] font-semibold border border-sky-800/40">Gestión Administrativa</span>' : ''}}
+                ${{isExcel ? '<span class="px-1.5 py-0.5 rounded bg-teal-950/60 text-teal-400 text-[10px] font-semibold border border-teal-800/40">Excel / Office 365</span>' : ''}}
+                ${{isFacturacion ? '<span class="px-1.5 py-0.5 rounded bg-indigo-950/60 text-indigo-400 text-[10px] font-semibold border border-indigo-800/40">Facturación & Contabilidad</span>' : ''}}
+                ${{isDigitacion ? '<span class="px-1.5 py-0.5 rounded bg-violet-950/60 text-violet-400 text-[10px] font-semibold border border-violet-800/40">Digitación & Data Entry</span>' : ''}}
               </div>
             </div>
           </div>
@@ -906,7 +921,9 @@ def build_dashboard_html(profiles_data: Dict[str, Any], initial_profile_id: str 
     document.addEventListener('DOMContentLoaded', () => {{
       // Check URL hash or param
       const hash = window.location.hash.toLowerCase();
-      if (hash.includes('sistemas') || hash.includes('tecnico') || hash.includes('profile_5')) {{
+      if (hash.includes('admin') || hash.includes('auxiliar') || hash.includes('profile_6')) {{
+        switchProfile('profile_6_auxiliar_administrativo');
+      }} else if (hash.includes('sistemas') || hash.includes('tecnico') || hash.includes('profile_5')) {{
         switchProfile('profile_5_tecnico_sistemas');
       }} else {{
         switchProfile('{initial_profile_id}');
@@ -924,11 +941,13 @@ def update_dashboard(base_dir: Optional[Path] = None) -> List[Path]:
 
     csv_p1 = base_dir / "output" / "profile_1_civil_vias_sst_tracker.csv"
     csv_p5 = base_dir / "output" / "profile_5_tecnico_sistemas_tracker.csv"
+    csv_p6 = base_dir / "output" / "profile_6_auxiliar_administrativo_tracker.csv"
 
     vacancies_p1 = load_vacancies_from_csv(csv_p1, profile_id="profile_1_civil_vias_sst")
     vacancies_p5 = load_vacancies_from_csv(csv_p5, profile_id="profile_5_tecnico_sistemas")
+    vacancies_p6 = load_vacancies_from_csv(csv_p6, profile_id="profile_6_auxiliar_administrativo")
 
-    print(f"Cargadas {len(vacancies_p1)} vacantes para Perfil 1 (Civil) y {len(vacancies_p5)} para Perfil 5 (Sistemas)")
+    print(f"Cargadas {len(vacancies_p1)} vacantes para Perfil 1 (Civil), {len(vacancies_p5)} para Perfil 5 (Sistemas) y {len(vacancies_p6)} para Perfil 6 (Administrativo)")
 
     profiles_data = {
         "profile_1_civil_vias_sst": {
@@ -955,6 +974,18 @@ def update_dashboard(base_dir: Optional[Path] = None) -> List[Path]:
             "has_barranquilla": False,
             "vacancies": vacancies_p5,
         },
+        "profile_6_auxiliar_administrativo": {
+            "id": "profile_6_auxiliar_administrativo",
+            "title": "Auxiliar Administrativo &bull; Asistente Virtual 100% Remoto",
+            "badge": "Perfil #3: Auxiliar Administrativo",
+            "experience": "1+ Años (Auxiliar / Asistente)",
+            "modality_badge": "💻 100% Virtual / Teletrabajo Nacional",
+            "description": "Filtro de modalidad estricto: Vacantes <strong>100% Remotas / Teletrabajo</strong> para Auxiliar Administrativo, Asistente Virtual, digitación, facturación y soporte operativo con herramientas ofimáticas (Excel, Office 365, Google Workspace, Siigo/SAP).",
+            "spec1": "Gestión Documental & Archivo",
+            "spec2": "Excel, Ofimática & Facturación",
+            "has_barranquilla": False,
+            "vacancies": vacancies_p6,
+        },
     }
 
     # 1. Main Unified index.html & dashboard.html (defaulting to profile 1 with tab switch)
@@ -963,21 +994,33 @@ def update_dashboard(base_dir: Optional[Path] = None) -> List[Path]:
     # 2. Dedicated systems dashboard (defaulting to profile 5)
     html_sistemas = build_dashboard_html(profiles_data, initial_profile_id="profile_5_tecnico_sistemas")
 
+    # 3. Dedicated administrative dashboard (defaulting to profile 6)
+    html_admin = build_dashboard_html(profiles_data, initial_profile_id="profile_6_auxiliar_administrativo")
+
     out_paths = [
         base_dir / "index.html",
         base_dir / "dashboard.html",
         base_dir / "dashboard_tecnico_sistemas.html",
+        base_dir / "dashboard_auxiliar_administrativo.html",
         base_dir / "output" / "index.html",
         base_dir / "output" / "dashboard.html",
         base_dir / "output" / "dashboard_tecnico_sistemas.html",
+        base_dir / "output" / "dashboard_auxiliar_administrativo.html",
         base_dir / "SUBIR_A_NETLIFY" / "index.html",
         base_dir / "SUBIR_A_NETLIFY" / "dashboard.html",
         base_dir / "SUBIR_A_NETLIFY" / "dashboard_tecnico_sistemas.html",
+        base_dir / "SUBIR_A_NETLIFY" / "dashboard_auxiliar_administrativo.html",
     ]
 
     for p in out_paths:
         p.parent.mkdir(parents=True, exist_ok=True)
-        content = html_sistemas if "sistemas" in p.name else html_unified
+        if "administrativo" in p.name:
+            content = html_admin
+        elif "sistemas" in p.name:
+            content = html_sistemas
+        else:
+            content = html_unified
+
         with open(p, "w", encoding="utf-8") as f:
             f.write(content)
         print(f"Dashboard actualizado con éxito en: {p}")
@@ -986,7 +1029,7 @@ def update_dashboard(base_dir: Optional[Path] = None) -> List[Path]:
     netlify_output = base_dir / "SUBIR_A_NETLIFY" / "output"
     netlify_output.mkdir(parents=True, exist_ok=True)
     for ext in ("csv", "xlsx"):
-        for pid in ("profile_1_civil_vias_sst", "profile_5_tecnico_sistemas"):
+        for pid in ("profile_1_civil_vias_sst", "profile_5_tecnico_sistemas", "profile_6_auxiliar_administrativo"):
             src = base_dir / "output" / f"{pid}_tracker.{ext}"
             if src.exists():
                 shutil.copy2(src, netlify_output / src.name)
