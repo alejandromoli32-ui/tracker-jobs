@@ -279,7 +279,76 @@ class AffinityScorer:
         title_score = 0.0
         title_hit = False
 
-        if is_tech_profile:
+        # Check if profile is strictly technician / non-professional
+        seniority_level = (profile.experience.seniority_level if profile.experience else "").lower()
+        is_technician_only = (
+            "tecnic" in seniority_level
+            or "auxiliar" in seniority_level
+            or "tecnico" in target_role.lower()
+        )
+
+        if is_technician_only:
+            # Overqualification penalties for roles requiring university engineering degrees or senior management
+            if re.search(r"\b(ingenier[ao]|engineer|arquitect[oa]|architect|director[ao]?|gerente|tech\s*lead|lead|devops)\b", title_clean, re.IGNORECASE):
+                penalty += 35.0
+            if re.search(r"\b(senior|sr\.?)\b", title_clean, re.IGNORECASE):
+                penalty += 25.0
+            if re.search(r"\b(full\s*stack|fullstack)\b", title_clean, re.IGNORECASE):
+                penalty += 20.0
+            if re.search(r"\b(t[ií]tulo\s*profesional\s*obligatorio|profesional\s*graduad[oa]|ingenier[oa]\s*titulad[oa]|profesional\s*en\s*ingenier[ií]a)\b", clean_text[:400], re.IGNORECASE):
+                penalty += 30.0
+
+        if is_technician_only:
+            # High priority technician and IT support tokens (15 pts)
+            tech_primary_tokens = [
+                r"t[eé]cnic[oa]\s*(?:en\s*|de\s*)?sistemas",
+                r"t[eé]cnic[oa]\s*(?:de\s*)?soporte",
+                r"t[eé]cnic[oa]\s*inform[aá]tic[oa]",
+                r"t[eé]cnic[oa]\s*(?:de\s*)?redes",
+                r"t[eé]cnic[oa]\s*computadores",
+                r"auxiliar\s*(?:de\s*)?sistemas",
+                r"auxiliar\s*(?:de\s*)?ti",
+                r"auxiliar\s*(?:de\s*)?soporte",
+                r"asistente\s*(?:de\s*)?sistemas",
+                r"asistente\s*(?:de\s*)?ti",
+                r"soporte\s*t[eé]cnic[oa]",
+                r"help\s*desk",
+                r"helpdesk",
+                r"mesa\s*de\s*ayuda",
+                r"soporte\s*ti",
+                r"soporte\s*it",
+                r"soporte\s*l1",
+                r"soporte\s*l2",
+                r"operador(?:\s*de)?\s*mesa\s*de\s*ayuda",
+                r"agente\s*de\s*soporte",
+                r"soporte\s*(?:de\s*)?aplicaciones",
+                r"analista\s*(?:de\s*)?soporte(?:\s*junior|\s*jr)?",
+                r"analista\s*de\s*soporte",
+                r"consultor\s*(?:de\s*)?soporte",
+                r"soporte\s*sql",
+                r"it\s*support",
+            ]
+            for token in tech_primary_tokens:
+                if re.search(token, title_clean, flags=re.IGNORECASE):
+                    title_score = 15.0
+                    title_hit = True
+                    break
+
+            if not title_hit:
+                # Junior developer / programmer roles (secondary match: 10 pts)
+                junior_dev_tokens = [
+                    r"desarrollador(?:\s*junior|\s*jr|\s*trainee)",
+                    r"programador(?:\s*junior|\s*jr|\s*trainee)",
+                    r"programador\s*python",
+                    r"desarrollador\s*python",
+                    r"soporte\s*(?:con\s*)?programaci[oó]n",
+                ]
+                for token in junior_dev_tokens:
+                    if re.search(token, title_clean, flags=re.IGNORECASE):
+                        title_score = 10.0
+                        title_hit = True
+                        break
+        elif is_tech_profile:
             tech_tokens = [
                 r"t[eé]cnic[oa]\s*(?:en\s*)?sistemas",
                 r"soporte\s*t[eé]cnic[oa]",
@@ -291,12 +360,8 @@ class AffinityScorer:
                 r"asistente\s*(?:de\s*)?sistemas",
                 r"analista\s*de\s*soporte",
                 r"soporte\s*(?:de\s*)?aplicaciones",
-                r"t[eé]cnic[oa]\s*(?:de\s*)?soporte",
-                r"t[eé]cnic[oa]\s*inform[aá]tic[oa]",
-                r"t[eé]cnic[oa]\s*(?:de\s*)?redes",
-                r"desarrollador(?:\s*junior|\s*jr)?",
-                r"programador(?:\s*junior|\s*jr)?",
-                r"soporte\s*(?:con\s*)?programaci[oó]n",
+                r"desarrollador",
+                r"programador",
                 r"python",
                 r"sql",
             ]

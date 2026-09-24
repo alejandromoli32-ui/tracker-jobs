@@ -1,14 +1,14 @@
 id: "profile_5_tecnico_sistemas"
 name: "Técnico en Sistemas y Soporte TI Remoto (con Programación)"
-target_role: "Técnico en Sistemas / Soporte TI Remoto"
-version: "1.0.0"
+target_role: "Técnico en Sistemas / Auxiliar de Soporte TI"
+version: "1.1.0"
 active: true
 min_total_experience_years: 1
 
 experience:
   min_total_years: 1
-  seniority_level: "Técnico / Junior / Mid"
-  primary_discipline: "Sistemas e Informática"
+  seniority_level: "Técnico / Tecnólogo"
+  primary_discipline: "Técnico en Sistemas e Informática"
 
 specializations:
   soporte_ti:
@@ -20,6 +20,9 @@ specializations:
       - "soporte técnico"
       - "tecnico en sistemas"
       - "técnico en sistemas"
+      - "tecnico de sistemas"
+      - "auxiliar de sistemas"
+      - "asistente de sistemas"
       - "help desk"
       - "helpdesk"
       - "mesa de ayuda"
@@ -45,12 +48,12 @@ specializations:
     boost_keywords:
       - "soporte tecnico"
       - "tecnico en sistemas"
+      - "auxiliar de sistemas"
       - "help desk"
-      - "soporte ti"
       - "mesa de ayuda"
 
   programacion_automatizacion:
-    name: "Programación, Scripts, SQL y Automatización"
+    name: "Programación Básica, Scripts, SQL y Automatización"
     min_years: 1
     weight: 25.0
     keywords:
@@ -69,14 +72,11 @@ specializations:
       - "css"
       - "git"
       - "github"
-      - "api rest"
-      - "apis"
       - "soporte de aplicaciones"
       - "consultas sql"
-      - "etl"
-      - "desarrollo web"
+      - "soporte a software"
       - "scripting"
-      - "postman"
+      - "excel avanzado"
     boost_keywords:
       - "python"
       - "sql"
@@ -108,6 +108,16 @@ modality:
     - "en oficina"
     - "turnos rotativos en sitio"
     - "trabajo en campo"
+    - "título profesional obligatorio"
+    - "titulo profesional obligatorio"
+    - "profesional graduado"
+    - "ingeniero graduado"
+    - "ingeniero titulado"
+    - "tarjeta profesional de ingeniería"
+    - "tarjeta copnia"
+    - "software architect"
+    - "arquitecto de software"
+    - "tech lead"
   allowed_countries:
     - "Colombia"
     - "Remoto Nacional"
@@ -123,19 +133,23 @@ modality:
     - "residir en santiago de chile"
 
 required_credentials:
-  - "Título Técnico / Tecnólogo o Profesional en Sistemas, Informática o afines"
+  - "Título Técnico, Tecnólogo o Certificación SENA en Sistemas / TI / Computación / Redes"
 
 search_queries:
   - "Tecnico en Sistemas Remoto"
+  - "Tecnico de Sistemas Remoto"
+  - "Auxiliar de Sistemas Remoto"
+  - "Auxiliar TI Remoto"
   - "Soporte Tecnico Remoto"
   - "Help Desk Remoto Colombia"
-  - "Soporte TI Remoto"
-  - "Soporte Tecnico Python SQL"
-  - "Auxiliar de Sistemas Remoto"
-  - "IT Support Remote Colombia"
-  - "Soporte de Aplicaciones Remoto"
-  - "Tecnico Soporte Scripts SQL"
-  - "Analista de Soporte Remoto"
+  - "Mesa de Ayuda Remoto"
+  - "Tecnico Soporte TI Remoto"
+  - "Tecnico Soporte Remoto"
+  - "Asistente de Sistemas Remoto"
+  - "Tecnico Help Desk Remoto"
+  - "Tecnico Sistemas Teletrabajo"
+  - "Soporte Nivel 1 Remoto"
+  - "Tecnico Redes Soporte Remoto"
 
 search_config:
   locations:
@@ -154,14 +168,17 @@ search_config:
   date_posted_limit_days: 30
   query_strings:
     - "Tecnico en Sistemas Remoto"
+    - "Tecnico de Sistemas Remoto"
+    - "Auxiliar de Sistemas Remoto"
+    - "Auxiliar TI Remoto"
     - "Soporte Tecnico Remoto"
     - "Help Desk Remoto Colombia"
-    - "Soporte TI Remoto"
-    - "Soporte Tecnico Python SQL"
-    - "Auxiliar de Sistemas Remoto"
-    - "IT Support Remote Colombia"
-    - "Soporte de Aplicaciones Remoto"
-    - "Analista Soporte Virtual"
+    - "Mesa de Ayuda Remoto"
+    - "Tecnico Soporte TI Remoto"
+    - "Tecnico Soporte Remoto"
+    - "Asistente de Sistemas Remoto"
+    - "Tecnico Help Desk Remoto"
+    - "Soporte Nivel 1 Remoto"
 
 scoring_weights:
   modality: 25.0
