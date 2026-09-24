@@ -713,6 +713,26 @@ class TestMultiProfileMatching:
         assert "python" in [k.lower() for k in res.matched_keywords]
         assert "soporte tecnico" in [k.lower() for k in res.matched_keywords]
 
+    def test_profile_5_rejects_professional_developer_roles(self, scorer):
+        """Technician profile must strictly reject professional developer and engineering roles."""
+        p5 = load_profile("profile_5_tecnico_sistemas")
+        developer_vac = NormalizedVacancy(
+            id="p5_dev_reject",
+            title="Desarrollador Python / Backend Remoto",
+            company="TechCorp Software",
+            direct_url="https://example.com/p5_dev",
+            location="Colombia (Remoto)",
+            modality="remoto",
+            source_portal="computrabajo",
+            full_description=(
+                "Requerimos Ingeniero de Sistemas graduado con título profesional obligatorio y 5 años "
+                "de experiencia en arquitectura de microservicios, FastAPI, Python y PostgreSQL. 100% remoto."
+            ),
+        )
+        res = scorer.evaluate(developer_vac, p5)
+        assert res.total_score == 0.0
+        assert res.is_disqualified is True
+
     def test_fixtures_json_evaluation(self, scorer, profile_1):
         """Evaluate all mock vacancies from mock_vacancies.json to verify stability."""
         fixture_path = Path(__file__).resolve().parent.parent / "job_hunter" / "fixtures" / "mock_vacancies.json"

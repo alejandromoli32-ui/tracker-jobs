@@ -131,6 +131,12 @@ class AffinityScorer:
         penalties += seniority_penalty
         if is_unrelated:
             penalties += 60.0
+            seniority_level_clean = _strip_accents((profile.experience.seniority_level if profile.experience else "") or "")
+            target_role_clean = _strip_accents(profile.target_role or "")
+            if bool(re.search(r"\b(?:tecnic[oa]|tecnolog[oa]|auxiliar)\b", seniority_level_clean)) or bool(
+                re.search(r"\b(?:tecnic[oa]|tecnolog[oa]|auxiliar)\b", target_role_clean)
+            ):
+                is_disqualified = True
 
         # ---------------------------------------------------------------------
         # 3. Specializations Evaluation (0 to 25 pts each)
@@ -280,25 +286,38 @@ class AffinityScorer:
         title_hit = False
 
         # Check if profile is strictly technician / non-professional
-        seniority_level = (profile.experience.seniority_level if profile.experience else "").lower()
-        is_technician_only = (
-            "tecnic" in seniority_level
-            or "auxiliar" in seniority_level
-            or "tecnico" in target_role.lower()
-        )
+        seniority_level_clean = _strip_accents((profile.experience.seniority_level if profile.experience else "") or "")
+        target_role_clean = _strip_accents(profile.target_role or "")
+        is_technician_only = bool(
+            re.search(r"\b(?:tecnic[oa]|tecnolog[oa]|auxiliar)\b", seniority_level_clean)
+        ) or bool(re.search(r"\b(?:tecnic[oa]|tecnolog[oa]|auxiliar)\b", target_role_clean))
 
         if is_technician_only:
-            # Overqualification penalties for roles requiring university engineering degrees or senior management
-            if re.search(r"\b(ingenier[ao]|engineer|arquitect[oa]|architect|director[ao]?|gerente|tech\s*lead|lead|devops)\b", title_clean, re.IGNORECASE):
-                penalty += 35.0
-            if re.search(r"\b(senior|sr\.?)\b", title_clean, re.IGNORECASE):
-                penalty += 25.0
-            if re.search(r"\b(full\s*stack|fullstack)\b", title_clean, re.IGNORECASE):
-                penalty += 20.0
-            if re.search(r"\b(t[ií]tulo\s*profesional\s*obligatorio|profesional\s*graduad[oa]|ingenier[oa]\s*titulad[oa]|profesional\s*en\s*ingenier[ií]a)\b", clean_text[:400], re.IGNORECASE):
-                penalty += 30.0
+            # Strictly disqualify professional engineering, developer, management, or data analyst roles
+            pro_disqualifiers = [
+                r"\b(?:ingenier[ao]|engineer)\b",
+                r"\b(?:arquitect[ao]|architect)\b",
+                r"\b(?:director[ao]?|gerente|coordinad\w*|supervisor\w*)\b",
+                r"\b(?:tech\s*lead|lead|devops)\b",
+                r"\b(?:full\s*stack|fullstack|frontend|backend)\b",
+                r"\b(?:desarrollador|developer|programador|dev)\b",
+                r"\b(?:analista\s*de\s*datos|data\s*analyst|data\s*engineer|data\s*scientist)\b",
+                r"\bespecialista\b",
+                r"\bautomatizaci[oó]n\b",
+                r"\b(?:senior|sr\.?)\b",
+            ]
+            for pat in pro_disqualifiers:
+                if re.search(pat, title_clean, flags=re.IGNORECASE):
+                    return 0.0, 100.0, True
 
-        if is_technician_only:
+            # If description explicitly requires a university professional degree or engineering professional card
+            if re.search(
+                r"\b(?:t[ií]tulo\s*profesional\s*obligatorio|profesional\s*graduad[oa]|profesional\s*titulad[oa]|ingenier[oa]\s*(?:titulad[oa]|graduad[oa])|profesional\s*en\s*ingenier[ií]a|tarjeta\s*copnia|tarjeta\s*profesional\s*de\s*ingenier[ií]a|carrera\s*profesional\s*culminada|profesional\s*universitari[oa])\b",
+                clean_text,
+                re.IGNORECASE,
+            ):
+                return 0.0, 100.0, True
+
             # High priority technician and IT support tokens (15 pts)
             tech_primary_tokens = [
                 r"t[eé]cnic[oa]\s*(?:en\s*|de\s*)?sistemas",
@@ -306,9 +325,11 @@ class AffinityScorer:
                 r"t[eé]cnic[oa]\s*inform[aá]tic[oa]",
                 r"t[eé]cnic[oa]\s*(?:de\s*)?redes",
                 r"t[eé]cnic[oa]\s*computadores",
+                r"t[eé]cnic[oa]\s*(?:o\s*tecn[oó]log[oa]\s*)?en\s*sistemas",
                 r"auxiliar\s*(?:de\s*)?sistemas",
                 r"auxiliar\s*(?:de\s*)?ti",
                 r"auxiliar\s*(?:de\s*)?soporte",
+                r"auxiliar\s*de\s*infraestructura",
                 r"asistente\s*(?:de\s*)?sistemas",
                 r"asistente\s*(?:de\s*)?ti",
                 r"soporte\s*t[eé]cnic[oa]",
@@ -319,35 +340,25 @@ class AffinityScorer:
                 r"soporte\s*it",
                 r"soporte\s*l1",
                 r"soporte\s*l2",
-                r"operador(?:\s*de)?\s*mesa\s*de\s*ayuda",
-                r"agente\s*de\s*soporte",
+                r"soporte\s*nivel\s*1",
+                r"soporte\s*nivel\s*2",
+                r"gestor\s*t[eé]cnico",
+                r"operador(?:\s*de)?\s*(?:mesa\s*de\s*ayuda|soporte)",
+                r"agente\s*(?:de\s*)?(?:soporte|mesa\s*de\s*ayuda)",
                 r"soporte\s*(?:de\s*)?aplicaciones",
-                r"analista\s*(?:de\s*)?soporte(?:\s*junior|\s*jr)?",
-                r"analista\s*de\s*soporte",
+                r"analista\s*(?:de\s*)?soporte",
+                r"analista\s*(?:de\s*)?mesa\s*de\s*ayuda",
                 r"consultor\s*(?:de\s*)?soporte",
                 r"soporte\s*sql",
                 r"it\s*support",
+                r"representante\s*de\s*soporte",
+                r"asesor(?:es)?\s*de\s*soporte",
             ]
             for token in tech_primary_tokens:
                 if re.search(token, title_clean, flags=re.IGNORECASE):
                     title_score = 15.0
                     title_hit = True
                     break
-
-            if not title_hit:
-                # Junior developer / programmer roles (secondary match: 10 pts)
-                junior_dev_tokens = [
-                    r"desarrollador(?:\s*junior|\s*jr|\s*trainee)",
-                    r"programador(?:\s*junior|\s*jr|\s*trainee)",
-                    r"programador\s*python",
-                    r"desarrollador\s*python",
-                    r"soporte\s*(?:con\s*)?programaci[oó]n",
-                ]
-                for token in junior_dev_tokens:
-                    if re.search(token, title_clean, flags=re.IGNORECASE):
-                        title_score = 10.0
-                        title_hit = True
-                        break
         elif is_tech_profile:
             tech_tokens = [
                 r"t[eé]cnic[oa]\s*(?:en\s*)?sistemas",
