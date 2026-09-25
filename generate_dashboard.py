@@ -659,6 +659,17 @@ def build_dashboard_html(profiles_data: Dict[str, Any], initial_profile_id: str 
 
       // Reset filters and update
       currentModalityFilter = 'recommended';
+      const searchInputElem = document.getElementById('searchInput');
+      if (searchInputElem) searchInputElem.value = '';
+      const cityFilterElem = document.getElementById('cityFilter');
+      if (cityFilterElem) cityFilterElem.value = 'all';
+      const scoreFilterElem = document.getElementById('scoreFilter');
+      if (scoreFilterElem) scoreFilterElem.value = 'all';
+      const portalFilterElem = document.getElementById('portalFilter');
+      if (portalFilterElem) portalFilterElem.value = 'all';
+      currentCityFilter = 'all';
+
+      setModalityFilter('recommended');
       updateStats();
       renderCityChips();
       applyFilters();
@@ -754,109 +765,114 @@ def build_dashboard_html(profiles_data: Dict[str, Any], initial_profile_id: str 
       emptyState.classList.add('hidden');
 
       grid.innerHTML = vacancies.map(v => {{
-        const currentStatus = getStoredStatus(v.id) || v.estado || 'Nueva';
+        try {{
+          const currentStatus = getStoredStatus(v.id) || v.estado || 'Nueva';
 
-        // Tag highlights
-        const isVias = v.resumen.toLowerCase().includes('vias') || v.resumen.toLowerCase().includes('vías') || v.resumen.toLowerCase().includes('pavimento');
-        const isSst = v.resumen.toLowerCase().includes('sst') || v.resumen.toLowerCase().includes('seguridad');
-        const isPython = v.resumen.toLowerCase().includes('python') || v.titulo.toLowerCase().includes('python');
-        const isSql = v.resumen.toLowerCase().includes('sql') || v.titulo.toLowerCase().includes('sql');
-        const isSupport = v.resumen.toLowerCase().includes('soporte') || v.titulo.toLowerCase().includes('help desk') || v.titulo.toLowerCase().includes('mesa de ayuda') || v.titulo.toLowerCase().includes('soporte');
-        const isAuto = v.resumen.toLowerCase().includes('automatiz') || v.resumen.toLowerCase().includes('script');
-        const isAdmin = v.resumen.toLowerCase().includes('administrativ') || v.titulo.toLowerCase().includes('administrativ') || v.titulo.toLowerCase().includes('asistente') || v.titulo.toLowerCase().includes('secretaria');
-        const isExcel = v.resumen.toLowerCase().includes('excel') || v.titulo.toLowerCase().includes('excel') || v.resumen.toLowerCase().includes('office');
-        const isFacturacion = v.resumen.toLowerCase().includes('facturaci') || v.titulo.toLowerCase().includes('facturaci') || v.resumen.toLowerCase().includes('contable') || v.titulo.toLowerCase().includes('contable');
-        const isDigitacion = v.resumen.toLowerCase().includes('digitaci') || v.titulo.toLowerCase().includes('digitad') || v.titulo.toLowerCase().includes('data entry');
+          // Tag highlights
+          const isVias = v.resumen.toLowerCase().includes('vias') || v.resumen.toLowerCase().includes('vías') || v.resumen.toLowerCase().includes('pavimento');
+          const isSst = v.resumen.toLowerCase().includes('sst') || v.resumen.toLowerCase().includes('seguridad');
+          const isPython = v.resumen.toLowerCase().includes('python') || v.titulo.toLowerCase().includes('python');
+          const isSql = v.resumen.toLowerCase().includes('sql') || v.titulo.toLowerCase().includes('sql');
+          const isSupport = v.resumen.toLowerCase().includes('soporte') || v.titulo.toLowerCase().includes('help desk') || v.titulo.toLowerCase().includes('mesa de ayuda') || v.titulo.toLowerCase().includes('soporte');
+          const isAuto = v.resumen.toLowerCase().includes('automatiz') || v.resumen.toLowerCase().includes('script');
+          const isAdmin = v.resumen.toLowerCase().includes('administrativ') || v.titulo.toLowerCase().includes('administrativ') || v.titulo.toLowerCase().includes('asistente') || v.titulo.toLowerCase().includes('secretaria');
+          const isExcel = v.resumen.toLowerCase().includes('excel') || v.titulo.toLowerCase().includes('excel') || v.resumen.toLowerCase().includes('office');
+          const isFacturacion = v.resumen.toLowerCase().includes('facturaci') || v.titulo.toLowerCase().includes('facturaci') || v.resumen.toLowerCase().includes('contable') || v.titulo.toLowerCase().includes('contable');
+          const isDigitacion = v.resumen.toLowerCase().includes('digitaci') || v.titulo.toLowerCase().includes('digitad') || v.titulo.toLowerCase().includes('data entry');
 
-        let scoreBadgeClass = 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40';
-        if (v.score >= 70) scoreBadgeClass = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
-        else if (v.score < 55) scoreBadgeClass = 'bg-amber-500/20 text-amber-300 border-amber-500/40';
+          let scoreBadgeClass = 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40';
+          if (v.score >= 70) scoreBadgeClass = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+          else if (v.score < 55) scoreBadgeClass = 'bg-amber-500/20 text-amber-300 border-amber-500/40';
 
-        return `
-        <div class="glass-card rounded-2xl p-5 border border-slate-800/90 flex flex-col justify-between hover:border-cyan-500/50 transition-all duration-200 group">
-          <div class="space-y-3">
-            <!-- TOP METADATA ROW -->
-            <div class="flex items-start justify-between gap-2">
-              <span class="px-2 py-0.5 rounded text-[11px] font-mono font-bold border ${{scoreBadgeClass}}">
-                ★ ${{v.score_str}} Afinidad
-              </span>
-              <div class="flex items-center gap-1.5">
-                <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-900 border border-slate-800 text-slate-400">
-                  ${{v.portal}}
+          return `
+          <div class="glass-card rounded-2xl p-5 border border-slate-800/90 flex flex-col justify-between hover:border-cyan-500/50 transition-all duration-200 group">
+            <div class="space-y-3">
+              <!-- TOP METADATA ROW -->
+              <div class="flex items-start justify-between gap-2">
+                <span class="px-2 py-0.5 rounded text-[11px] font-mono font-bold border ${{scoreBadgeClass}}">
+                  ★ ${{v.score_str}} Afinidad
                 </span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-900/60 text-slate-400 border border-slate-800">
-                  ${{v.ciudad_badge}}
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-900 border border-slate-800 text-slate-400">
+                    ${{v.portal}}
+                  </span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-900/60 text-slate-400 border border-slate-800">
+                    ${{v.ciudad_badge}}
+                  </span>
+                </div>
+              </div>
+
+              <!-- TITLE & COMPANY -->
+              <div>
+                <h3 class="text-base font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-2">
+                  ${{v.titulo}}
+                </h3>
+                <div class="text-xs text-slate-400 mt-0.5 flex items-center gap-1.5">
+                  <span class="text-slate-300 font-medium">${{v.empresa}}</span>
+                  ${{v.salario ? `<span class="text-slate-500">&bull;</span><span class="text-emerald-400 font-mono text-[11px]">${{v.salario}}</span>` : ''}}
+                </div>
+              </div>
+
+              <!-- MODALITY BADGE -->
+              <div class="pt-1">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border ${{v.badge_class}}">
+                  <span>${{v.mod_icon || '💻'}}</span>
+                  <span>${{v.modalidad}}</span>
                 </span>
+              </div>
+
+              <!-- SUMMARY & OBSERVATIONS -->
+              <div class="bg-slate-900/60 rounded-lg p-3 text-xs text-slate-300 leading-relaxed border border-slate-800 space-y-2">
+                <p>${{v.resumen}}</p>
+                
+                <div class="flex flex-wrap gap-1 pt-1">
+                  ${{isVias ? '<span class="px-1.5 py-0.5 rounded bg-cyan-950/60 text-cyan-400 text-[10px] font-semibold border border-cyan-800/40">Infraestructura Vial</span>' : ''}}
+                  ${{isSst ? '<span class="px-1.5 py-0.5 rounded bg-emerald-950/60 text-emerald-400 text-[10px] font-semibold border border-emerald-800/40">SST / HSEQ</span>' : ''}}
+                  ${{isSupport ? '<span class="px-1.5 py-0.5 rounded bg-blue-950/60 text-blue-400 text-[10px] font-semibold border border-blue-800/40">Soporte TI / Help Desk</span>' : ''}}
+                  ${{isPython ? '<span class="px-1.5 py-0.5 rounded bg-amber-950/60 text-amber-400 text-[10px] font-semibold border border-amber-800/40">Python / Scripts</span>' : ''}}
+                  ${{isSql ? '<span class="px-1.5 py-0.5 rounded bg-purple-950/60 text-purple-400 text-[10px] font-semibold border border-purple-800/40">SQL / Bases Datos</span>' : ''}}
+                  ${{isAuto ? '<span class="px-1.5 py-0.5 rounded bg-emerald-950/60 text-emerald-400 text-[10px] font-semibold border border-emerald-800/40">Automatización</span>' : ''}}
+                  ${{isAdmin ? '<span class="px-1.5 py-0.5 rounded bg-sky-950/60 text-sky-400 text-[10px] font-semibold border border-sky-800/40">Gestión Administrativa</span>' : ''}}
+                  ${{isExcel ? '<span class="px-1.5 py-0.5 rounded bg-teal-950/60 text-teal-400 text-[10px] font-semibold border border-teal-800/40">Excel / Office 365</span>' : ''}}
+                  ${{isFacturacion ? '<span class="px-1.5 py-0.5 rounded bg-indigo-950/60 text-indigo-400 text-[10px] font-semibold border border-indigo-800/40">Facturación & Contabilidad</span>' : ''}}
+                  ${{isDigitacion ? '<span class="px-1.5 py-0.5 rounded bg-violet-950/60 text-violet-400 text-[10px] font-semibold border border-violet-800/40">Digitación & Data Entry</span>' : ''}}
+                </div>
               </div>
             </div>
 
-            <!-- TITLE & COMPANY -->
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-2">
-                ${{v.titulo}}
-              </h3>
-              <div class="text-xs text-slate-400 mt-0.5 flex items-center gap-1.5">
-                <span class="text-slate-300 font-medium">${{v.empresa}}</span>
-                ${{v.salario ? `<span class="text-slate-500">&bull;</span><span class="text-emerald-400 font-mono text-[11px]">${{v.salario}}</span>` : ''}}
+            <!-- FOOTER / ACTIONS -->
+            <div class="pt-4 mt-4 border-t border-slate-800/80 space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <div class="text-[11px] text-slate-400 font-medium">Estado:</div>
+                <select onchange="setStoredStatus('${{v.id}}', this.value)" 
+                  class="bg-slate-900 border border-slate-700 text-xs rounded-md px-2 py-1 text-slate-200 focus:ring-1 focus:ring-cyan-500">
+                  <option value="Nueva" ${{currentStatus === 'Nueva' ? 'selected' : ''}}>Nueva</option>
+                  <option value="Por revisar" ${{currentStatus === 'Por revisar' ? 'selected' : ''}}>Por revisar</option>
+                  <option value="Postulado" ${{currentStatus === 'Postulado' ? 'selected' : ''}}>Postulado</option>
+                  <option value="En proceso" ${{currentStatus === 'En proceso' ? 'selected' : ''}}>En proceso</option>
+                  <option value="Descartado" ${{currentStatus === 'Descartado' ? 'selected' : ''}}>Descartado</option>
+                </select>
               </div>
-            </div>
 
-            <!-- MODALITY BADGE -->
-            <div class="pt-1">
-              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border ${{v.badge_class}}">
-                <span>${{v.mod_icon}}</span>
-                <span>${{v.modalidad}}</span>
-              </span>
-            </div>
-
-            <!-- SUMMARY & OBSERVATIONS -->
-            <div class="bg-slate-900/60 rounded-lg p-3 text-xs text-slate-300 leading-relaxed border border-slate-800 space-y-2">
-              <p>${{v.resumen}}</p>
-              
-              <div class="flex flex-wrap gap-1 pt-1">
-                ${{isVias ? '<span class="px-1.5 py-0.5 rounded bg-cyan-950/60 text-cyan-400 text-[10px] font-semibold border border-cyan-800/40">Infraestructura Vial</span>' : ''}}
-                ${{isSst ? '<span class="px-1.5 py-0.5 rounded bg-emerald-950/60 text-emerald-400 text-[10px] font-semibold border border-emerald-800/40">SST / HSEQ</span>' : ''}}
-                ${{isSupport ? '<span class="px-1.5 py-0.5 rounded bg-blue-950/60 text-blue-400 text-[10px] font-semibold border border-blue-800/40">Soporte TI / Help Desk</span>' : ''}}
-                ${{isPython ? '<span class="px-1.5 py-0.5 rounded bg-amber-950/60 text-amber-400 text-[10px] font-semibold border border-amber-800/40">Python / Scripts</span>' : ''}}
-                ${{isSql ? '<span class="px-1.5 py-0.5 rounded bg-purple-950/60 text-purple-400 text-[10px] font-semibold border border-purple-800/40">SQL / Bases Datos</span>' : ''}}
-                ${{isAuto ? '<span class="px-1.5 py-0.5 rounded bg-emerald-950/60 text-emerald-400 text-[10px] font-semibold border border-emerald-800/40">Automatización</span>' : ''}}
-                ${{isAdmin ? '<span class="px-1.5 py-0.5 rounded bg-sky-950/60 text-sky-400 text-[10px] font-semibold border border-sky-800/40">Gestión Administrativa</span>' : ''}}
-                ${{isExcel ? '<span class="px-1.5 py-0.5 rounded bg-teal-950/60 text-teal-400 text-[10px] font-semibold border border-teal-800/40">Excel / Office 365</span>' : ''}}
-                ${{isFacturacion ? '<span class="px-1.5 py-0.5 rounded bg-indigo-950/60 text-indigo-400 text-[10px] font-semibold border border-indigo-800/40">Facturación & Contabilidad</span>' : ''}}
-                ${{isDigitacion ? '<span class="px-1.5 py-0.5 rounded bg-violet-950/60 text-violet-400 text-[10px] font-semibold border border-violet-800/40">Digitación & Data Entry</span>' : ''}}
+              <div class="flex items-center gap-2">
+                <a href="${{v.url}}" target="_blank" rel="noopener noreferrer" 
+                  class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white transition-colors shadow-sm">
+                  <span>Ver Oferta y Postular</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+                <button onclick="copyJobShare('${{v.id}}')" 
+                  title="Copiar enlace para compartir" 
+                  class="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                </button>
               </div>
             </div>
           </div>
-
-          <!-- FOOTER / ACTIONS -->
-          <div class="pt-4 mt-4 border-t border-slate-800/80 space-y-3">
-            <div class="flex items-center justify-between gap-2">
-              <div class="text-[11px] text-slate-400 font-medium">Estado:</div>
-              <select onchange="setStoredStatus('${{v.id}}', this.value)" 
-                class="bg-slate-900 border border-slate-700 text-xs rounded-md px-2 py-1 text-slate-200 focus:ring-1 focus:ring-cyan-500">
-                <option value="Nueva" ${{currentStatus === 'Nueva' ? 'selected' : ''}}>Nueva</option>
-                <option value="Por revisar" ${{currentStatus === 'Por revisar' ? 'selected' : ''}}>Por revisar</option>
-                <option value="Postulado" ${{currentStatus === 'Postulado' ? 'selected' : ''}}>Postulado</option>
-                <option value="En proceso" ${{currentStatus === 'En proceso' ? 'selected' : ''}}>En proceso</option>
-                <option value="Descartado" ${{currentStatus === 'Descartado' ? 'selected' : ''}}>Descartado</option>
-              </select>
-            </div>
-
-            <div class="flex items-center gap-2">
-              <a href="${{v.url}}" target="_blank" rel="noopener noreferrer" 
-                class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white transition-colors shadow-sm">
-                <span>Ver Oferta y Postular</span>
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-              </a>
-              <button onclick="copyJobShare('${{v.titulo.replace(/'/g, "\\\\'") }}', '${{v.empresa.replace(/'/g, "\\\\'") }}', '${{v.url}}')" 
-                title="Copiar enlace para compartir" 
-                class="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
-              </button>
-            </div>
-          </div>
-        </div>
-        `;
+          `;
+        }} catch(cardErr) {{
+          console.error("Error renderizando vacante:", cardErr, v);
+          return '';
+        }}
       }}).join('');
     }}
 
@@ -903,8 +919,10 @@ def build_dashboard_html(profiles_data: Dict[str, Any], initial_profile_id: str 
       setModalityFilter('recommended');
     }}
 
-    function copyJobShare(title, company, url) {{
-      const text = `🎯 *Oportunidad Laboral*\\n💼 Cargo: ${{title}}\\n🏢 Empresa: ${{company}}\\n🔗 Postular aquí: ${{url}}`;
+    function copyJobShare(vacancyId) {{
+      const v = INITIAL_VACANCIES.find(x => x.id === vacancyId);
+      if (!v) return;
+      const text = `🎯 *Oportunidad Laboral*\\n💼 Cargo: ${{v.titulo}}\\n🏢 Empresa: ${{v.empresa}}\\n🔗 Postular aquí: ${{v.url}}`;
       navigator.clipboard.writeText(text).then(() => {{
         alert("Enlace directo copiado al portapapeles. ¡Listo para compartir!");
       }}).catch(() => {{
